@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <!-- =========================
+         METADADOS BÁSICOS
+    ========================== -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Produtos | Drops</title>
+
+    <!-- =========================
+         FONTES
+         - Bebas Neue (títulos)
+         - Inter (texto)
+    ========================== -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- =========================
+         ÍCONES (Font Awesome)
+    ========================== -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <!-- =========================
+         ESTILOS DO PROJETO
+         Ordem recomendada:
+         1. Reset
+         2. Variáveis
+         3. Página específica
+    ========================== -->
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/produtos.css" />
+  </head>
+
+  <body>
+    <!-- =========================
+         HEADER
+         (Componente reutilizável)
+    ========================== -->
+    <header class="header">
+      <!-- conteúdo já existente -->
+    </header>
+
+    <!-- =========================
+         CONTEÚDO PRINCIPAL
+    ========================== -->
+    <main class="produtos-page container">
+      <!-- ===== Cabeçalho da página ===== -->
+      <div class="produtos-header">
+        <!-- Botão voltar para home -->
+        <a href="index.html" class="back-home" aria-label="Voltar para home">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+
+        <!-- Título e subtítulo -->
+        <div class="produtos-title">
+          <h1>Últimos Drops</h1>
+          <p class="produtos-subtitle">Criados na rua. Lançados pela cena.</p>
+        </div>
+
+        <!-- Filtro por ano -->
+        <select
+          id="filter-year"
+          class="filter-year"
+          aria-label="Filtrar produtos por ano"
+        >
+          <option value="all">Todos os anos</option>
+          <option value="2025">2025</option>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+        </select>
+      </div>
+
+      <!-- ===== Label de seção ===== -->
+      <p class="drop-label">
+        <i class="fa-solid fa-tag"></i>
+        Últimos Drops
+      </p>
+
+      <!-- =========================
+           GRID DE PRODUTOS
+           Conteúdo dinâmico via JS
+      ========================== -->
+      <section class="produtos-grid" id="produtos-list" aria-live="polite">
+        <!-- Cards de produtos são injetados via JavaScript -->
+      </section>
+    </main>
+
+    <!-- =========================
+         FOOTER
+         (Componente reutilizável)
+    ========================== -->
+    <footer class="footer">
+      <div class="footer-container">
+        <!-- COLUNA 1 -->
+        <div class="footer-col">
+          <h3>SUP. ASPECTO</h3>
+          <p>
+            Marca independente nascida no Amazonas.<br />
+            Cultura hip-hop, rua e identidade.
+          </p>
+        </div>
+
+        <!-- COLUNA 2 -->
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Produtos</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Carrinho</a></li>
+          </ul>
+        </div>
+
+        <!-- COLUNA 3 -->
+        <div class="footer-col">
+          <h4>Redes</h4>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">TikTok</a></li>
+          </ul>
+        </div>
+
+        <!-- COLUNA 4 -->
+        <div class="footer-col">
+          <h4>Contato</h4>
+          <p>Email: supaspecto@gmail.com</p>
+          <p>Manaus - AM</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Sup Aspecto — Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <!-- =========================
+         SCRIPTS
+         Ordem lógica:
+         1. Produtos
+         2. Carrinho
+         3. Lógica específica da página
+    ========================== -->
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/produtos.js"></script>
+  </body>
+</html>

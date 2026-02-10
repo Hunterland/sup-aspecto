@@ -1,0 +1,268 @@
+/* =======================================================
+   PÁGINA PRODUTOS — DROPS
+   Estrutura base da página
+   ======================================================= */
+
+.produtos-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 120px 24px 80px;
+}
+
+/* Título principal da página */
+.produtos-page h1 {
+  justify-self: center;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 48px;
+  letter-spacing: 2px;
+  color: var(--black);
+}
+
+/* =======================================================
+   HEADER DA PÁGINA
+   Área superior com navegação, título e filtro
+   ======================================================= */
+
+.produtos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 64px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* -----------------------
+   Botão Voltar
+------------------------ */
+
+.back-home {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--purple);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--purple);
+  text-decoration: none;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.back-home i {
+  font-size: 16px;
+}
+
+/* Hover seguindo o padrão visual do projeto */
+.back-home:hover {
+  background: var(--purple);
+  color: var(--white);
+  transform: translateX(-4px);
+}
+
+/* -----------------------
+   Título e subtítulo
+------------------------ */
+
+.produtos-title {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.produtos-subtitle {
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+/* =======================================================
+   FILTRO POR ANO
+   ======================================================= */
+
+.filter-year {
+  background: transparent;
+  border: 1px solid #000;
+  padding: 10px 14px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+.filter-year:hover {
+  background: #000;
+  color: #fff;
+}
+
+.filter-year:focus {
+  outline: none;
+}
+
+/* Label de contexto da seção */
+.drop-label {
+  margin-bottom: 32px;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+/* =======================================================
+   GRID DE PRODUTOS
+   ======================================================= */
+
+.produtos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 40px;
+}
+
+/* =======================================================
+   CARD DE PRODUTO
+   ======================================================= */
+
+.produto {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background: #fafafa;
+  border-radius: 2px;
+  transition: transform 0.3s ease;
+}
+
+.produto:hover {
+  transform: translateY(-6px);
+}
+
+/* -----------------------
+   Imagem do produto
+------------------------ */
+
+.produto img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  background: #f5f5f5;
+  transition: transform 0.4s ease;
+}
+
+.produto:hover img {
+  transform: scale(1.02);
+}
+
+/* -----------------------
+   Informações do produto
+------------------------ */
+
+.produto-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Nome */
+.produto-info h3 {
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Preço */
+.produto .price,
+.produto-info span {
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+/* Ano / Drop */
+.produto-info .produto-year {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+/* =======================================================
+   SELECT DE TAMANHO
+   ======================================================= */
+
+.produto .product-size {
+  background: transparent;
+  border: 1px solid currentColor;
+  padding: 10px;
+  font-size: 13px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.produto .product-size:focus {
+  outline: none;
+}
+
+/* =======================================================
+   BOTÃO DE AÇÃO
+   ======================================================= */
+
+.produto button {
+  margin-top: 8px;
+  padding: 14px;
+  background: #000;
+  color: #fff;
+  border: none;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.produto button:hover {
+  background: #2d2d2d;
+}
+
+/* =======================================================
+   RESPONSIVO
+   ======================================================= */
+
+@media (max-width: 768px) {
+  .produtos-header {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    text-align: left;
+  }
+
+  .produtos-header h1 {
+    font-size: 28px;
+  }
+
+  .produtos-page h1 {
+    justify-self: start;
+  }
+
+  .produtos-grid {
+    gap: 32px 20px;
+  }
+
+  .filter-year {
+    width: 100%;
+  }
+
+  .produtos-title {
+    gap: 10px;
+  }
+
+  .drop-label {
+    margin-bottom: 24px;
+  }
+}

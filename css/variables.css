@@ -1,0 +1,15 @@
+:root {
+  /* Cores */
+  --purple: #5b2d8b;
+  --purple-dark: #4b2373;
+  --white: #f5f5f5;
+  --black: #0f0f0f;
+  --gray: #8c8c8c;
+
+  /* Tipografia */
+  --font-title: "Bebas Neue", sans-serif;
+  --font-text: "Inter", sans-serif;
+
+  /* Layout */
+  --container: 1200px;
+}

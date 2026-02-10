@@ -1,0 +1,367 @@
+/* =======================================================
+   HEADER / NAVEGAÇÃO PRINCIPAL
+   ======================================================= */
+
+.header {
+  background: var(--purple);
+  color: var(--white);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+}
+
+/* Logo */
+.logo img {
+  height: 100px; /* tamanho ideal para header de 80px */
+  width: auto;
+  display: block;
+}
+
+/* Navegação */
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 32px; /* espaçamento correto entre links */
+  list-style: none;
+}
+
+.nav-list a {
+  position: relative;
+  color: var(--white);
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.9;
+  padding-bottom: 6px;
+  transition: opacity 0.3s;
+}
+
+/* Linha animada no hover */
+.nav-list a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #8c8c8c;
+  transition: width 0.3s ease;
+}
+
+.nav-list a:hover {
+  opacity: 1;
+  color: #8c8c8c;
+}
+
+.nav-list a:hover::after {
+  width: 100%;
+}
+
+/* =======================================================
+   HERO / DESTAQUE PRINCIPAL
+   ======================================================= */
+
+.hero {
+  height: 80vh;
+  background:
+    url("../assets/images/hero/hero-batalha-malta.png")
+    center top 1% / cover no-repeat;
+  position: relative;
+}
+
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 10%;
+  color: var(--white);
+}
+
+/* Tipografia e contraste */
+.hero-overlay h2 {
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+}
+
+.hero-overlay p {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Tag do Hero */
+.hero-tag {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  border: 1px solid var(--purple);
+  padding: 6px 14px;
+  margin-bottom: 24px;
+  display: inline-block;
+}
+
+/* Títulos e textos */
+.hero h2 {
+  font-size: 48px;
+  max-width: 700px;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.hero-sub {
+  font-size: 18px;
+  max-width: 520px;
+  margin-bottom: 12px;
+  color: #e0e0e0;
+}
+
+.hero-support {
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #b5b5b5;
+  margin-bottom: 32px;
+}
+
+/* =======================================================
+   MANIFESTO
+   ======================================================= */
+
+.manifesto {
+  font-size: 48px;
+  margin: 100px auto;
+  line-height: 1.1;
+}
+
+/* =======================================================
+   SEÇÃO PRODUTOS (HOME)
+   ======================================================= */
+
+.produtos h2 {
+  margin-bottom: 40px;
+}
+
+/* =======================================================
+   ÍCONE DO CARRINHO (HEADER)
+   ======================================================= */
+
+.cart-icon {
+  position: relative;
+}
+
+.cart-icon button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--white);
+  font-size: 20px;
+  position: relative;
+}
+
+/* Badge contador */
+#cart-count {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background: #8c8c8c;
+  color: #000;
+  font-size: 11px;
+  font-weight: bold;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =======================================================
+   CARRINHO — OVERLAY E SIDEBAR
+   ======================================================= */
+
+/* Overlay escuro */
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 90;
+}
+
+/* Sidebar */
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 420px;
+  max-width: 100%;
+  height: 100vh;
+  background: var(--white);
+  color: var(--purple);
+  display: flex;
+  flex-direction: column;
+  transition: right 0.35s ease;
+  z-index: 100;
+}
+
+/* Estado aberto */
+.cart-sidebar.open {
+  right: 0;
+}
+
+.cart-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* =======================================================
+   CARRINHO — HEADER
+   ======================================================= */
+
+.cart-header {
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.cart-header h3 {
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 2px;
+}
+
+.cart-header button {
+  background: none;
+  border: none;
+  color: var(--purple);
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* =======================================================
+   CARRINHO — ITENS
+   ======================================================= */
+
+.cart-items {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.cart-item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.cart-item img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+}
+
+.cart-info h3 {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.cart-info span {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+/* =======================================================
+   CARRINHO — FOOTER
+   ======================================================= */
+
+.cart-footer {
+  padding: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.cart-customer input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: var(--white);
+  color: var(--purple);
+}
+
+/* =======================================================
+   FOOTER DO SITE
+   ======================================================= */
+
+.footer {
+  background: var(--purple);
+  color: #f5f5f5;
+  margin-top: 120px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+}
+
+.footer h3,
+.footer h4 {
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.footer p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--white);
+}
+
+.footer p:hover {
+  color: #8c8c8c;
+}
+
+.footer ul {
+  list-style: none;
+}
+
+.footer ul li {
+  margin-bottom: 8px;
+}
+
+.footer ul li a {
+  color: #f5f5f5;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.footer ul li a:hover {
+  color: #8c8c8c;
+}
+
+/* Rodapé legal */
+.footer-bottom {
+  border-top: 1px solid #222;
+  padding: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--white);
+}

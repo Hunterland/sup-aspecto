@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <!-- ===================================================
+         METADADOS BÁSICOS
+         =================================================== -->
+    <meta charset="UTF-8" />
+    <title>Sup. Aspecto</title>
+
+    <!-- ===================================================
+         FONTES
+         Bebas Neue (títulos) + Inter (texto)
+         =================================================== -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ===================================================
+         ÍCONES (Font Awesome)
+         =================================================== -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <!-- ===================================================
+         CSS DO PROJETO
+         Ordem: reset → variáveis → base → layout → componentes
+         =================================================== -->
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+  </head>
+
+  <body>
+    <!-- ===================================================
+         HEADER
+         Logo + Navegação + Carrinho
+         =================================================== -->
+    <header class="header">
+      <div class="header-content container">
+        <!-- LOGO -->
+        <div class="logo">
+          <a href="index.html">
+            <img src="assets/images/logo/supaspecto.png" alt="Sup. Aspecto" />
+          </a>
+        </div>
+
+        <!-- NAVEGAÇÃO -->
+        <nav class="nav">
+          <ul class="nav-list">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="produto.html">Produtos</a></li>
+
+            <!-- ÍCONE DO CARRINHO -->
+            <li class="cart-icon">
+              <button id="open-cart" aria-label="Abrir carrinho">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span id="cart-count">0</span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ===================================================
+         OVERLAY DO CARRINHO
+         =================================================== -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+
+    <!-- ===================================================
+         SIDEBAR DO CARRINHO
+         =================================================== -->
+    <aside class="cart-sidebar" id="cart-sidebar">
+      <!-- CABEÇALHO -->
+      <header class="cart-header">
+        <h3>Carrinho</h3>
+        <button id="close-cart" aria-label="Fechar carrinho">✕</button>
+      </header>
+
+      <!-- ITENS DO CARRINHO -->
+      <section class="cart-items">
+        <!-- JS renderiza os produtos -->
+      </section>
+
+      <!-- FOOTER DO CARRINHO -->
+      <footer class="cart-footer">
+        <!-- DADOS DO CLIENTE -->
+        <div class="cart-customer">
+          <label>Nome completo</label>
+          <input
+            type="text"
+            id="customer-name"
+            placeholder="Digite seu nome completo"
+          />
+        </div>
+
+        <!-- TOTAL -->
+        <div class="cart-total">
+          <span>Total</span>
+          <strong id="cart-total">R$ 0,00</strong>
+        </div>
+
+        <!-- AÇÃO -->
+        <button class="btn-primary">Finalizar compra</button>
+      </footer>
+    </aside>
+
+    <!-- ===================================================
+         HERO / DESTAQUE
+         =================================================== -->
+    <section class="hero">
+      <div class="hero-overlay">
+        <span class="hero-tag">EM BREVE</span>
+
+        <h2>Coleção Sup Aspecto + Batalha da Malta</h2>
+
+        <p class="hero-sub">
+          A maior batalha de rima do Norte encontra a cultura hip-hop da
+          Amazônia.
+        </p>
+
+        <p class="hero-support">
+          Criada pela cena. Feita para quem vive a rua.
+        </p>
+
+        <a class="btn-primary" href="#produtos">
+          Acompanhar lançamento
+        </a>
+      </div>
+    </section>
+
+    <!-- ===================================================
+         MANIFESTO DA MARCA
+         =================================================== -->
+    <section class="manifesto container">
+      <p>
+        Nascida no Amazonas.<br />
+        Feita na rua.<br />
+        Criada pela cena.
+      </p>
+    </section>
+
+    <!-- ===================================================
+         PRODUTOS EM DESTAQUE
+         =================================================== -->
+    <section id="produtos" class="produtos container">
+      <h2>Drop Atual</h2>
+
+      <div class="grid-produtos">
+        <!-- PRODUTO 1 -->
+        <article class="produto">
+          <img src="assets/images/drops/DHV/camisa_hv_02.jpg" alt="" />
+          <h3>Camisa Sup Cypher</h3>
+          <span>R$ 120,00</span>
+
+          <select class="product-size">
+            <option value="">Tamanho</option>
+            <option value="P">P</option>
+            <option value="M">M</option>
+            <option value="G">G</option>
+            <option value="GG">GG</option>
+          </select>
+
+          <button data-id="1">Adicionar</button>
+        </article>
+
+        <!-- PRODUTO 2 -->
+        <article class="produto">
+          <img src="assets/images/drops/NPN/camisa_npn_02.jpg" alt="" />
+          <h3>Camisa Nós por nois</h3>
+          <span>R$ 130,00</span>
+
+          <select class="product-size">
+            <option value="">Tamanho</option>
+            <option value="P">P</option>
+            <option value="M">M</option>
+            <option value="G">G</option>
+            <option value="GG">GG</option>
+          </select>
+
+          <button data-id="2">Adicionar</button>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================================================
+         FOOTER
+         =================================================== -->
+    <footer class="footer">
+      <div class="footer-container">
+        <!-- COLUNA 1: MARCA -->
+        <div class="footer-col">
+          <h3>SUP. ASPECTO</h3>
+          <p>
+            Marca independente nascida no Amazonas.<br />
+            Cultura hip-hop, rua e identidade.
+          </p>
+        </div>
+
+        <!-- COLUNA 2: NAVEGAÇÃO -->
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Produtos</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Carrinho</a></li>
+          </ul>
+        </div>
+
+        <!-- COLUNA 3: REDES -->
+        <div class="footer-col">
+          <h4>Redes</h4>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">TikTok</a></li>
+          </ul>
+        </div>
+
+        <!-- COLUNA 4: CONTATO -->
+        <div class="footer-col">
+          <h4>Contato</h4>
+          <p>Email: supaspecto@gmail.com</p>
+          <p>Manaus - AM</p>
+        </div>
+      </div>
+
+      <!-- RODAPÉ LEGAL -->
+      <div class="footer-bottom">
+        <p>© 2026 Sup Aspecto — Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <!-- ===================================================
+         SCRIPTS
+         =================================================== -->
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

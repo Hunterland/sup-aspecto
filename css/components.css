@@ -1,0 +1,155 @@
+/* =========================================================
+   COMPONENTES GLOBAIS
+   ========================================================= */
+
+/* Botão primário padrão do projeto */
+.btn-primary {
+  display: inline-block;
+  padding: 14px 32px;
+  margin-top: 24px;
+
+  background: var(--purple);
+  color: var(--white);
+
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Interação hover do botão primário */
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.6);
+}
+
+
+/* =========================================================
+   GRID DE PRODUTOS
+   ========================================================= */
+
+/* Grid base para listagem de produtos */
+.grid-produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 40px;
+}
+
+/* Imagem do produto */
+.produto img {
+  width: 100%;
+  filter: grayscale(20%);
+}
+
+/* Botão de ação do produto (ex: adicionar ao carrinho) */
+.produto button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+
+  background: var(--black);
+  color: var(--white);
+
+  border: none;
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   SESSÃO DE CARRINHO
+   ========================================================= */
+
+/* Container principal do carrinho */
+.cart {
+  margin-top: 120px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 60px;
+}
+
+/* Título do carrinho */
+.cart h1 {
+  grid-column: 1 / -1;
+
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 48px;
+
+  margin-bottom: 40px;
+}
+
+/* Item individual do carrinho */
+.cart-item {
+  display: grid;
+  grid-template-columns: 100px 1fr auto auto;
+  align-items: center;
+  gap: 24px;
+
+  padding: 24px 0;
+  border-bottom: 1px solid #333;
+}
+
+/* Imagem do item no carrinho */
+.cart-item img {
+  width: 100%;
+}
+
+/* Informações do produto no carrinho */
+.cart-info h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+/* Controle de quantidade */
+.cart-qty {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Botões de incremento/decremento */
+.cart-qty button {
+  width: 32px;
+  height: 32px;
+
+  background: none;
+  border: 1px solid var(--purple);
+  color: var(--purple);
+
+  cursor: pointer;
+}
+
+/* Botão para remover item */
+.cart-remove {
+  background: none;
+  border: none;
+  color: #8c8c8c;
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   RESUMO DO CARRINHO
+   ========================================================= */
+
+/* Box de resumo (subtotal, total, etc.) */
+.cart-summary {
+  border: 1px solid #333;
+  padding: 32px;
+  height: fit-content;
+}
+
+/* Informação auxiliar (ex: tamanho do produto) */
+.cart-size {
+  font-size: 13px;
+  color: #666;
+  margin: 4px 0;
+}
+
+/* Linha de valores no resumo */
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
