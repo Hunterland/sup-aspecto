@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <!-- METADADOS BÁSICOS -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sobre | Sup Aspecto</title>
+
+    <!-- FONTES -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ÍCONES -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <!-- ESTILOS (mesma ordem) -->
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/sobre.css" />
+  </head>
+
+  <body>
+    <!-- HEADER (reutilizável) -->
+    <header class="header">
+      <!-- conteúdo já existente da home -->
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="sobre-page container">
+      <!-- Header da página - ALINHADO AO CENTRO -->
+      <div class="sobre-header">
+        <!-- Botão voltar para home -->
+        <a href="index.html" class="back-home" aria-label="Voltar para home">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+
+        <!-- Título e subtítulo CENTRALIZADOS -->
+        <div class="sobre-title">
+          <h1>Sobre a Sup Aspecto</h1>
+          <p class="sobre-subtitle">
+            Nascida na rua. Criada pela cena. Feita no Amazonas.
+          </p>
+        </div>
+
+        <!-- Espaço vazio para manter proporção com produtos -->
+        <div class="sobre-header-spacer"></div>
+      </div>
+
+      <!-- Manifesto expandido -->
+      <section class="sobre-manifesto">
+        <blockquote>
+          <p>
+            <strong class="phrase-title">A Sup Aspecto nasceu da rua para a rua.</strong><br />
+            Entre treinos de breaking no Educandos, batalhas de rima na Batalha
+            da Malta, trocas de ideias na esquina e a vontade incontrolável de
+            vestir a própria história.
+          </p>
+
+          <p class="manifesto-continua">
+            <strong class="phrase-title-2">Não é só roupa. É Manaus vestindo sua identidade.</strong
+            ><br />
+            Feita pra quem vive a cena, respira o asfalto e representa o Norte.
+          </p>
+        </blockquote>
+      </section>
+
+      <!-- História da marca -->
+      <section class="sobre-historia">
+        <div class="historia-item">
+          <h2>2023</h2>
+          <p>
+            Nasce na Batalha da Malta. Primeiras camisas desenhadas à mão,
+            impressas em silk local. 50 peças vendidas em 2 horas.
+          </p>
+        </div>
+        <div class="historia-item">
+          <h2>2024</h2>
+          <p>
+            Drop "Nós por Nois" com Primatas Clan. Primeira collab oficial com a
+            cena de breaking de Manaus.
+          </p>
+        </div>
+        <div class="historia-item">
+          <h2>2025</h2>
+          <p>
+            Sup Cypher. Camisas que capturam a essência do cypher: círculo
+            fechado, energia coletiva, movimento sem fim.
+          </p>
+        </div>
+      </section>
+
+      <!-- Valores da marca -->
+      <section class="sobre-valores">
+        <div class="valores-grid">
+          <article class="valor-item">
+            <i class="fa-solid fa-street-view"></i>
+            <h3>Rua</h3>
+            <p>Feita onde a cultura acontece. Testada no asfalto.</p>
+          </article>
+          <article class="valor-item">
+            <i class="fa-solid fa-people-group"></i>
+            <h3>Cena</h3>
+            <p>Criada com quem vive o hip-hop amazônico.</p>
+          </article>
+          <article class="valor-item">
+            <i class="fa-solid fa-fire"></i>
+            <h3>Identidade</h3>
+            <p>Representa Manaus. Norte forte. Cultura viva.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- CTA final -->
+      <section class="sobre-cta">
+        <h2>Faça parte da cena</h2>
+        <a href="produto.html" class="btn-primary">Ver Drops</a>
+      </section>
+    </main>
+
+    <!-- =========================
+         FOOTER
+         (Componente reutilizável)
+    ========================== -->
+    <footer class="footer">
+      <div class="footer-container">
+        <!-- COLUNA 1 -->
+        <div class="footer-col">
+          <h3>SUP. ASPECTO</h3>
+          <p>
+            Marca independente nascida no Amazonas.<br />
+            Cultura hip-hop, rua e identidade.
+          </p>
+        </div>
+
+        <!-- COLUNA 2 -->
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Produtos</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Carrinho</a></li>
+          </ul>
+        </div>
+
+        <!-- COLUNA 3 -->
+        <div class="footer-col">
+          <h4>Redes</h4>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">TikTok</a></li>
+          </ul>
+        </div>
+
+        <!-- COLUNA 4 -->
+        <div class="footer-col">
+          <h4>Contato</h4>
+          <p>Email: supaspecto@gmail.com</p>
+          <p>Manaus - AM</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Sup Aspecto — Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <!-- SCRIPTS (ordem padrão) -->
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/toast.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

@@ -153,3 +153,40 @@
   justify-content: space-between;
   margin-bottom: 24px;
 }
+
+/* =========================================================
+   TOAST NOTIFICAÇÃO
+   ========================================================= */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  min-width: 300px;
+  padding: 16px 24px;
+  background: var(--purple);
+  color: var(--white);
+  border: 1px solid var(--white);
+  border-radius: 6px;
+ /* 👈 SHADOW MAIS FORTE E MODERNO */
+  box-shadow: 
+    0 20px 40px rgba(91, 45, 139, 0.4),
+    0 8px 16px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateX(400px);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 1000;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.toast.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.toast.success::before {
+  content: "✅";
+  margin-right: 12px;
+  font-size: 18px;
+}

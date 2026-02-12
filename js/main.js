@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const openCartBtn = document.getElementById("open-cart");
   const closeCartBtn = document.getElementById("close-cart");
 
-
   /* =======================================================
      AÇÕES DE PRODUTO (Adicionar ao Carrinho)
      ======================================================= */
@@ -31,12 +30,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const size = sizeSelect?.value;
 
       if (!size) {
-        alert("Selecione o tamanho da peça");
+        showToast("Selecione o tamanho da peça");
         return;
       }
 
       // Adiciona ao carrinho
       addToCart({ ...product, size });
+      showToast("Produto adicionado ao carrinho"); // 👈 NOVO
+      if (typeof renderCart === "function") {
+        renderCart();
+      }
 
       // Garante atualização visual da sidebar
       if (typeof renderCart === "function") {
@@ -44,11 +47,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Abre o carrinho automaticamente
-      cartSidebar?.classList.add("open");
-      cartOverlay?.classList.add("active");
+      // cartSidebar?.classList.add("open");
+      // cartOverlay?.classList.add("active");
     });
   });
-
 
   /* =======================================================
      CONTROLES DO CARRINHO (Abrir / Fechar)
