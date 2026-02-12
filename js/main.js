@@ -76,3 +76,20 @@ document.addEventListener("DOMContentLoaded", () => {
     cartOverlay?.classList.remove("active");
   });
 });
+
+// HAMBURGER MENU
+const hamburgerBtn = document.getElementById('hamburger-btn');
+const overlay = document.querySelector('.nav-mobile-overlay');
+
+hamburgerBtn?.addEventListener('click', () => {
+  overlay?.classList.toggle('open');
+  hamburgerBtn.setAttribute('aria-expanded', overlay?.classList.contains('open'));
+});
+
+// Fecha overlay
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.header-content') && overlay?.classList.contains('open')) {
+    overlay.classList.remove('open');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+  }
+});

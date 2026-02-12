@@ -13,3 +13,34 @@
   /* Layout */
   --container: 1200px;
 }
+
+:root {
+  /* Spacing Scale (8px base) */
+  --spacing-xs: clamp(0.5rem, 1.5vw, 0.75rem); /* 8-12px */
+  --spacing-s: clamp(1rem, 2.5vw, 1.25rem);    /* 16-20px */
+  --spacing-m: clamp(1.5rem, 4vw, 2rem);       /* 24-32px */
+  --spacing-l: clamp(2rem, 5vw, 3rem);         /* 32-48px */
+  --spacing-xl: clamp(3rem, 7vw, 5rem);        /* 48-80px */
+  --spacing-2xl: clamp(5rem, 10vw, 8rem);      /* 80-128px */
+
+  /* Typography Fluid */
+  --fs-xs: clamp(0.75rem, 2vw, 0.875rem);  /* 12-14px */
+  --fs-sm: clamp(0.875rem, 2.5vw, 1rem);   /* 14-16px */
+  --fs-base: clamp(1rem, 3vw, 1.125rem);   /* 16-18px */
+  --fs-lg: clamp(1.125rem, 3.5vw, 1.25rem); /* 18-20px */
+  --fs-xl: clamp(1.5rem, 4vw, 2rem);       /* 24-32px */
+  --fs-2xl: clamp(2.5rem, 6vw, 4rem);      /* 40-64px */
+  --fs-hero: clamp(3rem, 8vw, 6rem);       /* 48-96px */
+
+  /* Layout */
+  --container-xs: 100%;
+  --container-sm: 100%;
+  --container:  min(100%, 1200px);
+  --sidebar-w: clamp(280px, 85vw, 420px); /* Mobile 280px → desktop 420px */
+
+  /* Z-index */
+  --z-overlay: 90;
+  --z-sidebar: 100;
+  --z-toast: 1000;
+}
+

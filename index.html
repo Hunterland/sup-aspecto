@@ -5,6 +5,14 @@
          METADADOS BÁSICOS
          =================================================== -->
     <meta charset="UTF-8" />
+    <!-- index.html HEAD: ADICIONAR -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/...Bebas+Inter"
+      as="style"
+    />
+
     <title>Sup. Aspecto</title>
 
     <!-- ===================================================
@@ -51,29 +59,37 @@
          =================================================== -->
     <header class="header">
       <div class="header-content container">
-        <!-- LOGO -->
-        <div class="logo">
-          <a href="index.html">
-            <img src="assets/images/logo/supaspecto.png" alt="Sup. Aspecto" />
-          </a>
-        </div>
+        <!-- LOGO ESQUERDA SEMPRE (static flex) -->
+        <a href="index.html" class="header-logo">
+          <img src="assets/images/logo/supaspecto.png" alt="Sup. Aspecto" />
+        </a>
 
-        <!-- NAVEGAÇÃO -->
-        <nav class="nav">
-          <ul class="nav-list">
+        <!-- HAMBURGER MOBILE ESQUERDA -->
+        <button
+          class="header-hamburger"
+          id="hamburger-btn"
+          aria-label="Abrir menu"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
+
+        <!-- NAV DESKTOP DIREITA -->
+        <nav class="header-nav" role="navigation">
+          <ul>
             <li><a href="#">Home</a></li>
             <li><a href="sobre.html">Sobre</a></li>
             <li><a href="produto.html">Produtos</a></li>
-
-            <!-- ÍCONE DO CARRINHO -->
-            <li class="cart-icon">
-              <button id="open-cart" aria-label="Abrir carrinho">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span id="cart-count">0</span>
-              </button>
-            </li>
           </ul>
         </nav>
+
+        <!-- CARRINHO EXTREMA-DIREITA -->
+        <div class="header-cart">
+          <button id="open-cart" aria-label="Carrinho (0 itens)">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span id="cart-count">0</span>
+          </button>
+        </div>
       </div>
     </header>
 
