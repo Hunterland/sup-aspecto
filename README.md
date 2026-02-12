@@ -136,7 +136,7 @@ Uso comercial exclusivo da marca.
 
 ***
 
-**Desenvolvido por:** Fullstack Manaus (HTML/CSS/JS Expert)  
+**Desenvolvido por:** Alan Barroncas 
 **Data:** 12 Fevereiro 2026  
 **Versão:** 1.0.0 MVP  
 
@@ -146,4 +146,3 @@ Uso comercial exclusivo da marca.
 
 ***
 
-**Copie este README.md → raiz projeto → push GitHub.** Estrutura **idêntica Primatas Clan** mas adaptada e-commerce Sup. Aspecto! 🚀✨
