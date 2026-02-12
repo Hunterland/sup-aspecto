@@ -31,7 +31,7 @@
   flex-shrink: 0;
 }
 .header-logo img {
-  height: clamp(38px, 10vw, 54px);
+  height: clamp(90px, 12vw, 72px);
   width: auto;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
 }
@@ -62,13 +62,23 @@
   background: rgba(255, 255, 255, 0.15);
 }
 
+.header-hamburger[aria-expanded="true"] span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+.header-hamburger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.header-hamburger[aria-expanded="true"] span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -5px);
+}
+
 /* 3. NAV DESKTOP (base: flex mas override mobile none) */
 .header-nav ul {
   display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: clamp(1.25rem, 2.5vw, 2rem);
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
   align-items: center;
 }
 .header-nav a {
@@ -77,14 +87,32 @@
   font-size: clamp(14px, 2.2vw, 16px);
   font-weight: 500;
   letter-spacing: 0.5px;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
+  padding: 0.5rem 0.75rem 0.5rem;
+  position: relative;
   transition: all 0.3s ease;
 }
 .header-nav a:hover,
 .header-nav a:focus {
   color: var(--white);
-  background: rgba(255, 255, 255, 0.2);
+  background: none;
+}
+
+/* Underline effect */
+.header-nav a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--white);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(-50%);
+}
+
+.header-nav a:hover::after,
+.header-nav a:focus::after {
+  width: 80%; /* 👈 Linha cresce de centro */
 }
 
 /* 4. CARRINHO DIREITA */
@@ -133,8 +161,31 @@
    MOBILE: Hamburguer VISÍVEL + Nav HIDDEN (0-1023px)
    ====================================================== */
 @media (max-width: 1023px) {
-  .header-hamburger { display: flex; }
-  .header-nav { display: none !important; } /* 👈 Esconde nav */
+  .header-content {
+    justify-content: center; /* 👈 CENTRALIZA tudo */
+    position: relative;
+  }
+
+  .header-hamburger {
+    display: flex !important; /* 👈 FORÇA VISÍVEL mobile */
+    position: absolute;
+    left: clamp(1rem, 4vw, 1.5rem); /* Esquerda absoluta */
+    order: unset; /* Remove flex order conflito */
+  }
+
+  .header-logo {
+    order: unset; /* Central natural */
+    margin-right: 0 !important; /* Remove margem extra */
+  }
+
+  .header-cart {
+    position: absolute;
+    right: clamp(1rem, 4vw, 1.5rem); /* Direita absoluta */
+  }
+
+  .header-nav {
+    display: none !important;
+  }
 }
 
 /* =======================================================
@@ -194,29 +245,34 @@
    👈 DESKTOP FIX: Logo ESQUERDA + Nav DIREITA (1024px+)
    ====================================================== */
 @media (min-width: 1024px) {
-  .header-logo { 
+  .header-logo {
     order: 0; /* 👈 ESQUERDA static */
     position: static; /* Remove qualquer absolute */
   }
-  
-  .header-hamburger { display: none !important; }
-  
-  .header-nav { 
-    display: flex !important; 
+
+  .header-logo img {
+    height: clamp(48px, 6vw, 80px); /* 👈 Desktop: 72px max */
+  }
+
+  .header-hamburger {
+    display: none !important;
+  }
+
+  .header-nav {
+    display: flex !important;
     margin-left: auto; /* 👈 NAV para DIREITA */
     margin-right: clamp(1rem, 2vw, 2rem); /* Gap nav-cart */
   }
-  
-  .header-cart { 
+
+  .header-cart {
     margin-left: 0; /* Extrema-direita natural */
   }
-  
-  .header-content { 
+
+  .header-content {
     padding: 0 clamp(2.5rem, 5vw, 4rem);
     gap: clamp(2rem, 4vw, 3rem);
   }
 }
-
 
 /* =======================================================
    HERO / DESTAQUE PRINCIPAL
@@ -226,9 +282,10 @@
   min-height: clamp(70vh, 85vw, 85vh);
   max-height: 95vh;
   background: url("../assets/images/hero/hero-batalha-malta.png");
-  background-position: center 20%; /* ← 20% melhor crop */
+  background-position: center 15%; /* 👈 15% melhor crop mobile (era 20%) */
   background-size: cover;
   background-repeat: no-repeat;
+  background-attachment: scroll; /* Evita fixed crop */
   position: relative;
   display: flex;
   align-items: center;
@@ -374,14 +431,14 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.35s ease;
-  z-index: var(--z-overlay, 90);
+  z-index: 90;
 }
 
 /* Sidebar fluida */
 .cart-sidebar {
   position: fixed;
   top: 0;
-  right: calc(-1 * clamp(280px, 90vw, 420px));
+  right: calc(-1 * clamp(320px, 85vw, 420px));
   width: clamp(280px, 90vw, 420px);
   height: 100dvh;
   background: var(--white);
@@ -391,6 +448,7 @@
   transition: right 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   z-index: var(--z-sidebar, 100);
   box-shadow: -2px 0 24px rgba(0, 0, 0, 0.25);
+  overflow: hidden; /* Evita scroll bleed */
 }
 
 .cart-sidebar.open {
@@ -407,32 +465,33 @@
    ====================================================== */
 
 .cart-header {
-  padding: clamp(16px, 4vw, 24px);
+  padding: clamp(1rem, 4vw, 1.5rem);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   flex-shrink: 0;
+  background: rgba(91, 45, 139, 0.02); /* Sutil bg */
 }
 
 .cart-header h3 {
   font-family: "Bebas Neue", sans-serif;
-  font-size: clamp(1.25rem, 4vw, 1.75rem);
-  letter-spacing: 1.5px;
+  font-size: clamp(1.125rem, 5vw, 1.5rem);
+  letter-spacing: 1px;
   margin: 0;
+  color: var(--purple);
 }
 
 .cart-header button {
-  background: none;
+  background: rgba(91, 45, 139, 0.1);
   border: none;
   color: var(--purple);
-  font-size: clamp(20px, 6vw, 28px);
   cursor: pointer;
-  padding: var(--spacing-xs);
-  border-radius: 4px;
-  transition: background 0.2s ease;
-  min-height: 44px;
-  min-width: 44px;
+  padding: clamp(0.5rem, 2vw, 0.75rem);
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  min-height: 40px;
+  min-width: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -440,7 +499,8 @@
 
 .cart-header button:hover,
 .cart-header button:focus {
-  background: rgba(91, 45, 139, 0.1);
+  background: var(--purple);
+  color: white;
 }
 
 /* =======================================================
@@ -451,34 +511,54 @@
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: clamp(12px, 3vw, 20px);
-  -webkit-overflow-scrolling: touch; /* iOS smooth */
+  padding: clamp(1rem, 3vw, 1.25rem);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(91, 45, 139, 0.2) transparent;
+}
+
+.cart-items::-webkit-scrollbar {
+  width: 4px;
+}
+
+.cart-items::-webkit-scrollbar-track {
+  background: transparent;
+}
+.cart-items::-webkit-scrollbar-thumb {
+  background: rgba(91, 45, 139, 0.3);
+  border-radius: 2px;
 }
 
 .cart-item {
   display: flex;
-  gap: clamp(8px, 2vw, 16px);
-  margin-bottom: clamp(16px, 4vw, 24px);
-  padding-bottom: clamp(12px, 3vw, 20px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  gap: clamp(0.75rem, 3vw, 1rem);
+  margin-bottom: clamp(1rem, 4vw, 1.25rem);
+  padding-bottom: clamp(0.75rem, 2.5vw, 1rem);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .cart-item img {
-  width: clamp(48px, 12vw, 80px);
-  height: clamp(48px, 12vw, 80px);
+  width: clamp(56px, 14vw, 72px); /* 👈 Maior visível */
+  height: clamp(56px, 14vw, 72px);
   object-fit: cover;
+  border-radius: 8px;
   flex-shrink: 0;
 }
 
 .cart-info {
   flex: 1;
-  min-width: 0; /* Permite text ellipsis */
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .cart-info h3 {
-  font-size: clamp(14px, 3.5vw, 18px);
-  margin: 0 0 var(--spacing-xs) 0;
+  font-size: clamp(0.875rem, 3.5vw, 1rem);
+  margin: 0;
   font-weight: 600;
+  color: var(--purple);
+  line-height: 1.2;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -490,53 +570,68 @@
   font-weight: 500;
 }
 
+.cart-info .size-price {
+  display: flex;
+  gap: 0.5rem;
+  font-size: clamp(0.75rem, 2.5vw, 0.875rem);
+  color: #666;
+  font-weight: 500;
+}
+
 /* Qty buttons touch-friendly */
 .cart-qty {
   display: flex;
   align-items: center;
-  gap: var(--spacing-xs);
-  min-width: 100px;
+  gap: clamp(0.25rem, 1vw, 0.5rem);
+  margin-top: 0.25rem;
 }
 
 .cart-qty button {
-  width: clamp(36px, 10vw, 44px);
-  height: clamp(36px, 10vw, 44px);
+  width: clamp(36px, 9vw, 42px);
+  height: clamp(36px, 9vw, 42px); /* 👈 TOUCH 44px+ */
   background: rgba(91, 45, 139, 0.1);
   border: 1px solid var(--purple);
   color: var(--purple);
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: clamp(14px, 3.5vw, 16px);
+  font-weight: 600;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-.cart-qty button:hover,
-.cart-qty button:focus {
-  background: var(--purple);
-  color: var(--white);
+.cart-qty span {
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
 }
-
+.cart-qty button:hover,
+.cart-qty button:active {
+  background: var(--purple);
+  color: white;
+  transform: scale(0.95);
+}
 .cart-remove {
-  background: rgba(200, 0, 0, 0.1);
+  background: rgba(211, 47, 47, 0.1);
   color: #d32f2f;
   border: 1px solid #d32f2f;
-  padding: var(--spacing-xs);
-  border-radius: 4px;
-  font-size: var(--fs-xs);
+  padding: clamp(0.375rem, 1.5vw, 0.5rem) clamp(0.75rem, 2vw, 1rem);
+  border-radius: 6px;
+  font-size: clamp(0.75rem, 2.5vw, 0.875rem);
+  font-weight: 500;
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.2s ease;
-  min-height: 36px;
+  min-height: 38px;
+  flex-shrink: 0;
 }
 
 .cart-remove:hover,
-.cart-remove:focus {
+.cart-remove:active {
   background: #d32f2f;
   color: white;
+  transform: scale(0.95);
 }
 
 /* =======================================================
@@ -544,18 +639,25 @@
    ====================================================== */
 
 .cart-footer {
-  padding: clamp(16px, 4vw, 24px);
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: clamp(1rem, 4vw, 1.5rem);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
   flex-shrink: 0;
+  background: rgba(91, 45, 139, 0.02);
 }
 
 .cart-total {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--spacing-s);
-  font-size: clamp(1.125rem, 3vw, 1.5rem);
+  margin-bottom: clamp(0.75rem, 2vw, 1rem);
+  font-size: clamp(1.125rem, 4vw, 1.5rem);
   font-weight: 700;
+  color: var(--purple);
+}
+
+.cart-total span:first-child {
+  font-weight: 500;
+  opacity: 0.8;
 }
 
 .cart-customer,
@@ -566,31 +668,54 @@
 .cart-customer label,
 .cart-payment label {
   display: block;
-  font-size: var(--fs-xs);
+  font-size: clamp(0.75rem, 2.5vw, 0.875rem);
   font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
-  margin-bottom: var(--spacing-xs);
+  margin-bottom: clamp(0.375rem, 1.5vw, 0.5rem);
   color: var(--purple);
 }
 
 .cart-customer input,
 .payment-select {
   width: 100%;
-  padding: clamp(10px, 3vw, 14px);
-  border: 1px solid #333;
-  border-radius: 6px;
-  background: var(--white);
+  padding: clamp(0.75rem, 3vw, 1rem);
+  border: 1px solid rgba(91, 45, 139, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
   color: var(--purple);
-  font-size: var(--fs-sm);
-  transition: border-color 0.2s ease;
+  font-size: clamp(0.875rem, 3vw, 1rem);
+  transition: all 0.2s ease;
 }
 
 .cart-customer input:focus,
 .payment-select:focus {
   outline: none;
   border-color: var(--purple);
-  box-shadow: 0 0 0 2px rgba(91, 45, 139, 0.15);
+  box-shadow: 0 0 0 3px rgba(91, 45, 139, 0.15);
+  background: white;
+}
+
+#checkout-btn {
+  width: 100%;
+  padding: clamp(1rem, 4vw, 1.25rem);
+  background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(1.125rem, 4.5vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 52px;
+  text-transform: uppercase;
+}
+#checkout-btn:hover,
+#checkout-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px rgba(91, 45, 139, 0.4);
 }
 
 /* =======================================================
@@ -659,6 +784,12 @@
    MEDIA QUERIES ORGANIZADAS
    ====================================================== */
 
+@media (max-width: 767px) {
+  .hero-overlay {
+    padding-top: clamp(2rem, 8vw, 4rem); /* Espaço header overlap */
+    max-width: 95%; /* Mais texto mobile */
+  }
+}
 /* Tablet Landscape+ 768px */
 @media (min-width: 768px) {
   .hero-overlay {

@@ -1,31 +1,36 @@
 /* =========================================================
-   MAIN UI CONTROLLER
+   MAIN UI CONTROLLER - UNIFICADO
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
   /* =======================================================
-     ELEMENTOS PRINCIPAIS
-     ======================================================= */
-
+     ELEMENTOS CARRINHO
+     ====================================================== */
   const cartSidebar = document.getElementById("cart-sidebar");
   const cartOverlay = document.getElementById("cart-overlay");
-
   const openCartBtn = document.getElementById("open-cart");
   const closeCartBtn = document.getElementById("close-cart");
 
   /* =======================================================
-     AÇÕES DE PRODUTO (Adicionar ao Carrinho)
-     ======================================================= */
+     👈 HAMBURGER - MOVIDO PARA DENTRO DOMLoaded
+     ====================================================== */
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const navOverlay = document.querySelector('.nav-mobile-overlay');
+  
+  hamburgerBtn?.addEventListener('click', () => {
+    navOverlay?.classList.toggle('open');
+    hamburgerBtn.setAttribute('aria-expanded', navOverlay?.classList.contains('open') ? 'true' : 'false');
+  });
 
+  /* =======================================================
+     ADD PRODUTO (duplicata renderCart removida)
+     ====================================================== */
   document.querySelectorAll(".produto button").forEach((btn) => {
     btn.addEventListener("click", () => {
       const id = Number(btn.dataset.id);
-
-      // Localiza o produto no catálogo
       const product = PRODUCTS.find((p) => p.id === id);
       if (!product) return;
 
-      // Captura o tamanho selecionado
       const sizeSelect = btn.parentElement.querySelector(".product-size");
       const size = sizeSelect?.value;
 
@@ -34,36 +39,19 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Adiciona ao carrinho
       addToCart({ ...product, size });
-      showToast("Produto adicionado ao carrinho"); // 👈 NOVO
-      if (typeof renderCart === "function") {
-        renderCart();
-      }
-
-      // Garante atualização visual da sidebar
-      if (typeof renderCart === "function") {
-        renderCart();
-      }
-
-      // Abre o carrinho automaticamente
-      // cartSidebar?.classList.add("open");
-      // cartOverlay?.classList.add("active");
+      showToast("Produto adicionado ao carrinho");
+      if (typeof renderCart === "function") renderCart(); // 👈 Única chamada
     });
   });
 
   /* =======================================================
-     CONTROLES DO CARRINHO (Abrir / Fechar)
-     ======================================================= */
-
+     CARRINHO CONTROLS
+     ====================================================== */
   openCartBtn?.addEventListener("click", () => {
     cartSidebar?.classList.add("open");
     cartOverlay?.classList.add("active");
-
-    // Garante renderização ao abrir manualmente
-    if (typeof renderCart === "function") {
-      renderCart();
-    }
+    if (typeof renderCart === "function") renderCart();
   });
 
   closeCartBtn?.addEventListener("click", () => {
@@ -75,21 +63,16 @@ document.addEventListener("DOMContentLoaded", () => {
     cartSidebar?.classList.remove("open");
     cartOverlay?.classList.remove("active");
   });
-});
 
-// HAMBURGER MENU
-const hamburgerBtn = document.getElementById('hamburger-btn');
-const overlay = document.querySelector('.nav-mobile-overlay');
-
-hamburgerBtn?.addEventListener('click', () => {
-  overlay?.classList.toggle('open');
-  hamburgerBtn.setAttribute('aria-expanded', overlay?.classList.contains('open'));
-});
-
-// Fecha overlay
-document.addEventListener('click', (e) => {
-  if (!e.target.closest('.header-content') && overlay?.classList.contains('open')) {
-    overlay.classList.remove('open');
-    hamburgerBtn.setAttribute('aria-expanded', 'false');
-  }
+  /* =======================================================
+     FECHAR OVERLAYS (nav + cart)
+     ====================================================== */
+  document.addEventListener('click', (e) => {
+    // Fecha NAV overlay
+    if (!e.target.closest('.header-content') && navOverlay?.classList.contains('open')) {
+      navOverlay.classList.remove('open');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+    }
+    // Fecha CART overlay (redundante mas OK)
+  });
 });
