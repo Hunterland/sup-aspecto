@@ -8,7 +8,6 @@
  */
 const CART_KEY = "sup_aspecto_cart";
 
-
 /* =========================================================
    STORAGE (LocalStorage)
    ========================================================= */
@@ -29,7 +28,6 @@ function saveCart(cart) {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
 }
 
-
 /* =========================================================
    CART ACTIONS (Regras de Negócio)
    ========================================================= */
@@ -43,7 +41,7 @@ function addToCart(product) {
   const cart = getCart();
 
   const existing = cart.find(
-    (item) => item.id === product.id && item.size === product.size
+    (item) => item.id === product.id && item.size === product.size,
   );
 
   if (existing) {
@@ -92,7 +90,6 @@ function changeQty(id, delta) {
   renderCart();
 }
 
-
 /* =========================================================
    UI HELPERS
    ========================================================= */
@@ -113,12 +110,8 @@ function updateCartCount() {
  * @returns {number}
  */
 function getTotal() {
-  return getCart().reduce(
-    (sum, item) => sum + item.preco * item.quantidade,
-    0
-  );
+  return getCart().reduce((sum, item) => sum + item.preco * item.quantidade, 0);
 }
-
 
 /* =========================================================
    RENDERIZAÇÃO DO CARRINHO
@@ -171,7 +164,6 @@ function renderCart() {
   }
 }
 
-
 /* =========================================================
    INIT
    ========================================================= */
@@ -182,4 +174,76 @@ function renderCart() {
 document.addEventListener("DOMContentLoaded", () => {
   updateCartCount();
   renderCart();
+});
+
+/* =========================================================
+   FINALIZAR COMPRA - EMAILJS + WHATSAPP
+   ========================================================= */
+document.addEventListener("DOMContentLoaded", function () {
+  setTimeout(() => {
+    const checkoutBtn = document.getElementById("checkout-btn");
+
+    if (checkoutBtn) {
+      checkoutBtn.addEventListener("click", function () {
+        const nome = document.getElementById("customer-name")?.value?.trim();
+        const pagamento = document.getElementById("payment-method")?.value;
+        const carrinho = getCart();
+        const total = getTotal();
+
+        // Validações
+        if (carrinho.length === 0 || !nome || !pagamento) {
+          showToast("Complete todos os campos", "error");
+          return;
+        }
+
+        // 👈 PRIMEIRO cria itensTexto
+        const itensTexto = carrinho
+          .map(
+            (item) =>
+              `👕 ${item.nome}
+          Tamanho: ${item.size} | ${item.quantidade}x | R$ ${(item.preco * item.quantidade).toFixed(2)}`,
+          )
+          .join("\n\n");
+
+        // Template params pro EmailJS
+        const templateParams = {
+          cliente_nome: nome,
+          total: `R$ ${total.toFixed(2)}`,
+          pagamento: pagamento.toUpperCase(),
+          data_hora: new Date().toLocaleString("pt-BR"),
+          itens_texto: itensTexto, // 👈 STRING simples
+          email: "alanbarroncas@gmail.com", // 👈 CAMPO OBRIGATÓRIO!
+        };
+
+        // EMAILJS
+        emailjs
+          .send("service_e4ylnlu", "template_6bzg816", templateParams)
+          .then((response) => {
+            console.log("✅ EMAIL:", response.status);
+            showToast("✅ Email enviado!", "success");
+          })
+          .catch((error) => {
+            console.error("EmailJS:", error);
+            showToast("WhatsApp enviado", "warning");
+          });
+
+        // 2️⃣ WHATSAPP (Abre conversa com mensagem pré-preenchida)
+        const mensagem = `🛒 PEDIDO\n${nome}\nR$ ${total.toFixed(2)}\n${pagamento}\n${itensTexto}`;
+        window.open(
+          `https://wa.me/559293818973?text=${encodeURIComponent(mensagem)}`,
+          "_blank",
+        );
+
+        // Limpa UI
+        localStorage.removeItem(CART_KEY);
+        updateCartCount();
+        renderCart();
+        showToast("✅ Pedido enviado por email + WhatsApp!", "success");
+
+        // Fecha sidebar
+        document.getElementById("cart-sidebar")?.classList.remove("open");
+        document.getElementById("cart-overlay")?.classList.remove("active");
+      });
+    }
+  }, 100);
 });

@@ -190,3 +190,35 @@
   margin-right: 12px;
   font-size: 18px;
 }
+
+/* Footer do carrinho - Pagamento */
+.cart-payment {
+  margin-bottom: 16px;
+}
+
+.cart-payment label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: var(--purple);
+}
+
+.payment-select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #333;
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--purple);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.payment-select:focus {
+  outline: none;
+  border-color: var(--purple);
+  box-shadow: 0 0 0 2px rgba(91, 45, 139, 0.2);
+}

@@ -33,6 +33,15 @@
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/layout.css" />
     <link rel="stylesheet" href="css/components.css" />
+
+    <!-- EmailJS - ADICIONE ANTES dos outros scripts -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      emailjs.init("EckYP3ZYx7NUWhCZY"); <!-- 👈 Cole aqui -->
+    </script>
   </head>
 
   <body>
@@ -100,6 +109,16 @@
           />
         </div>
 
+        <!-- 👈 NOVO: FORMA DE PAGAMENTO -->
+        <div class="cart-payment">
+          <label>Forma de pagamento</label>
+          <select id="payment-method" class="payment-select">
+            <option value="">Selecione</option>
+            <option value="dinheiro">Dinheiro (à vista)</option>
+            <option value="pix">Pix (QR Code instantâneo)</option>
+          </select>
+        </div>
+
         <!-- TOTAL -->
         <div class="cart-total">
           <span>Total</span>
@@ -107,7 +126,7 @@
         </div>
 
         <!-- AÇÃO -->
-        <button class="btn-primary">Finalizar compra</button>
+        <button class="btn-primary" id="checkout-btn">Finalizar compra</button>
       </footer>
     </aside>
 
@@ -129,9 +148,7 @@
           Criada pela cena. Feita para quem vive a rua.
         </p>
 
-        <a class="btn-primary" href="#produtos">
-          Acompanhar lançamento
-        </a>
+        <a class="btn-primary" href="#produtos"> Acompanhar lançamento </a>
       </div>
     </section>
 
