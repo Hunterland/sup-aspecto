@@ -429,34 +429,41 @@
   inset: 0;
   background: rgba(0, 0, 0, 0.75);
   opacity: 0;
+  visibility: hidden; /* 👈 TOTALMENTE oculto */
   pointer-events: none;
   transition: opacity 0.35s ease;
   z-index: 90;
+  will-change: opacity; /* Otimização GPU */
 }
 
 /* Sidebar fluida */
 .cart-sidebar {
-  position: fixed;
+ position: fixed;
   top: 0;
-  right: calc(-1 * clamp(320px, 85vw, 420px));
-  width: clamp(280px, 90vw, 420px);
+  right: -100vw; /* 👈 FORA TELA (vw evita calc bug 320px) */
+  width: clamp(320px, 85vw, 420px);
+  max-width: 90vw; /* Limite segurança */
   height: 100dvh;
   background: var(--white);
   color: var(--purple);
   display: flex;
   flex-direction: column;
   transition: right 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  z-index: var(--z-sidebar, 100);
-  box-shadow: -2px 0 24px rgba(0, 0, 0, 0.25);
-  overflow: hidden; /* Evita scroll bleed */
+  z-index: 100;
+  box-shadow: none; /* 👈 SEM sombra vazada */
+  transform: translateZ(0); /* GPU acceleration */
+  overflow: hidden;
+  will-change: right; /* Performance */
 }
 
 .cart-sidebar.open {
   right: 0;
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.4); /* Sombra só aberto */
 }
 
 .cart-overlay.active {
   opacity: 1;
+  visibility: visible;
   pointer-events: all;
 }
 
@@ -716,6 +723,23 @@
 #checkout-btn:active {
   transform: translateY(-1px);
   box-shadow: 0 8px 25px rgba(91, 45, 139, 0.4);
+}
+
+@media (max-width: 360px) {
+  .cart-sidebar {
+    width: 95vw;
+    right: -100vw; /* Consistente */
+  }
+}
+
+@media (min-width: 768px) {
+  .cart-sidebar {
+    width: 420px;
+    right: -450px; /* Fixo desktop */
+  }
+  .cart-sidebar.open {
+    right: 0;
+  }
 }
 
 /* =======================================================

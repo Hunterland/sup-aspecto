@@ -14,12 +14,15 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =======================================================
      👈 HAMBURGER - MOVIDO PARA DENTRO DOMLoaded
      ====================================================== */
-  const hamburgerBtn = document.getElementById('hamburger-btn');
-  const navOverlay = document.querySelector('.nav-mobile-overlay');
-  
-  hamburgerBtn?.addEventListener('click', () => {
-    navOverlay?.classList.toggle('open');
-    hamburgerBtn.setAttribute('aria-expanded', navOverlay?.classList.contains('open') ? 'true' : 'false');
+  const hamburgerBtn = document.getElementById("hamburger-btn");
+  const navOverlay = document.querySelector(".nav-mobile-overlay");
+
+  hamburgerBtn?.addEventListener("click", () => {
+    navOverlay?.classList.toggle("open");
+    hamburgerBtn.setAttribute(
+      "aria-expanded",
+      navOverlay?.classList.contains("open") ? "true" : "false",
+    );
   });
 
   /* =======================================================
@@ -49,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
      CARRINHO CONTROLS
      ====================================================== */
   openCartBtn?.addEventListener("click", () => {
+    cartOverlay?.offsetHeight;
     cartSidebar?.classList.add("open");
     cartOverlay?.classList.add("active");
     if (typeof renderCart === "function") renderCart();
@@ -67,11 +71,14 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =======================================================
      FECHAR OVERLAYS (nav + cart)
      ====================================================== */
-  document.addEventListener('click', (e) => {
+  document.addEventListener("click", (e) => {
     // Fecha NAV overlay
-    if (!e.target.closest('.header-content') && navOverlay?.classList.contains('open')) {
-      navOverlay.classList.remove('open');
-      hamburgerBtn.setAttribute('aria-expanded', 'false');
+    if (
+      !e.target.closest(".header-content") &&
+      navOverlay?.classList.contains("open")
+    ) {
+      navOverlay.classList.remove("open");
+      hamburgerBtn.setAttribute("aria-expanded", "false");
     }
     // Fecha CART overlay (redundante mas OK)
   });
