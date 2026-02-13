@@ -60,11 +60,13 @@ function addToCart(product) {
  * @param {number} id
  */
 function removeItem(id) {
-  const cart = getCart().filter((item) => item.id !== id);
+  const cart = getCart();
+  const newCart = cart.filter((item) => item.id !== parseInt(id));
 
-  saveCart(cart);
-  updateCartCount();
+  saveCart(newCart);
   renderCart();
+  updateCartCount();
+  showToast("Item removido do carrinho", "success");
 }
 
 /**
@@ -74,20 +76,18 @@ function removeItem(id) {
  */
 function changeQty(id, delta) {
   const cart = getCart();
-  const item = cart.find((i) => i.id === id);
+  const itemIndex = cart.findIndex((item) => item.id === parseInt(id));
 
-  if (!item) return;
+  if (itemIndex !== -1) {
+    cart[itemIndex].quantidade = Math.max(
+      1,
+      cart[itemIndex].quantidade + delta,
+    );
 
-  item.quantidade += delta;
-
-  if (item.quantidade <= 0) {
-    removeItem(id);
-    return;
+    saveCart(cart);
+    renderCart();
+    updateCartCount();
   }
-
-  saveCart(cart);
-  updateCartCount();
-  renderCart();
 }
 
 /* =========================================================
@@ -123,44 +123,47 @@ function getTotal() {
  */
 function renderCart() {
   const cart = getCart();
-
   const container = document.querySelector(".cart-items");
   const totalEl = document.getElementById("cart-total");
 
   if (!container) return;
 
-  container.innerHTML = "";
+  if (cart.length === 0) {
+    container.innerHTML =
+      '<p style="text-align:center;opacity:0.6;padding:2rem 1rem">Carrinho vazio</p>';
+    if (totalEl) totalEl.textContent = "R$ 0,00";
+    return;
+  }
 
-  cart.forEach((item) => {
-    container.innerHTML += `
-      <article class="cart-item">
-        <img src="${item.imagem}" alt="${item.nome}" />
-
-        <div class="cart-info">
-          <h3>${item.nome}</h3>
-
-          <p class="cart-size">
-            Tamanho: <strong>${item.size}</strong>
-          </p>
-
+  container.innerHTML = cart
+    .map(
+      (item) => `
+    <div class="cart-item" data-id="${item.id}">
+      <img src="${item.imagem}" alt="${item.nome}" class="cart-item-image">
+      <div class="cart-details">
+        <h3 class="cart-name">${item.nome}</h3>
+        <div class="cart-meta">
+          <span>Tamanho: ${item.size}</span>
           <span>R$ ${item.preco.toFixed(2)}</span>
         </div>
-
+      </div>
+      <div class="cart-controls-row">
         <div class="cart-qty">
-          <button onclick="changeQty(${item.id}, -1)">−</button>
+          <button data-action="dec" aria-label="Diminuir">-</button>
           <span>${item.quantidade}</span>
-          <button onclick="changeQty(${item.id}, 1)">+</button>
+          <button data-action="inc" aria-label="Aumentar">+</button>
         </div>
-
-        <button class="cart-remove" data-id="${item.id}" aria-label="Remover item">
+        <button class="cart-remove" aria-label="Remover ${item.nome}">
           <i class="fas fa-trash-alt"></i>
         </button>
-      </article>
-    `;
-  });
+      </div>
+    </div>
+  `,
+    )
+    .join("");
 
   if (totalEl) {
-    totalEl.innerText = `R$ ${getTotal().toFixed(2)}`;
+    totalEl.textContent = `R$ ${getTotal().toFixed(2)}`;
   }
 }
 
@@ -174,6 +177,60 @@ function renderCart() {
 document.addEventListener("DOMContentLoaded", () => {
   updateCartCount();
   renderCart();
+
+  let pendingRemoveId = null; // ID global para modal
+
+  const cartItems = document.querySelector(".cart-items");
+  if (cartItems) {
+    cartItems.addEventListener("click", (e) => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+
+      const item = btn.closest(".cart-item");
+      const id = item?.dataset?.id;
+
+      if (!id) return;
+
+      if (btn.dataset.action === "inc") {
+        changeQty(id, 1);
+      } else if (btn.dataset.action === "dec") {
+        changeQty(id, -1);
+      } else if (btn.classList.contains("cart-remove")) {
+        pendingRemoveId = id; // Armazena ID
+        showConfirmModal(); // Abre modal custom
+      }
+    });
+  }
+
+  // NOVAS FUNÇÕES MODAL
+  function showConfirmModal() {
+    document.getElementById("confirm-modal").classList.add("active");
+  }
+
+  function hideConfirmModal() {
+    document.getElementById("confirm-modal").classList.remove("active");
+    pendingRemoveId = null;
+  }
+
+  function confirmRemove() {
+    if (pendingRemoveId) {
+      removeItem(pendingRemoveId);
+      hideConfirmModal();
+    }
+  }
+
+  // 👈 Event listeners modal 
+  document
+    .getElementById("confirm-cancel")
+    ?.addEventListener("click", hideConfirmModal);
+  document
+    .getElementById("confirm-remove")
+    ?.addEventListener("click", confirmRemove);
+
+  // Fecha modal clicando overlay
+  document.getElementById("confirm-modal")?.addEventListener("click", (e) => {
+    if (e.target.id === "confirm-modal") hideConfirmModal();
+  });
 });
 
 /* =========================================================
