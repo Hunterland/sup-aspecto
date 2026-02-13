@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeCartBtn = document.getElementById("close-cart");
 
   /* =======================================================
-     👈 HAMBURGER - MOVIDO PARA DENTRO DOMLoaded
+     HAMBURGER - MOVIDO PARA DENTRO DOMLoaded
      ====================================================== */
   const hamburgerBtn = document.getElementById("hamburger-btn");
   const navOverlay = document.querySelector(".nav-mobile-overlay");
@@ -38,13 +38,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const size = sizeSelect?.value;
 
       if (!size) {
-        showToast("Selecione o tamanho da peça");
+        showToast("Selecione o tamanho da peça", "error");
         return;
       }
 
       addToCart({ ...product, size });
       showToast("Produto adicionado ao carrinho");
-      if (typeof renderCart === "function") renderCart(); // 👈 Única chamada
+      if (typeof renderCart === "function") renderCart(); 
     });
   });
 
