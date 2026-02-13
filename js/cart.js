@@ -152,8 +152,8 @@ function renderCart() {
           <button onclick="changeQty(${item.id}, 1)">+</button>
         </div>
 
-        <button class="cart-remove" onclick="removeItem(${item.id})">
-          Remover
+        <button class="cart-remove" data-id="${item.id}" aria-label="Remover item">
+          <i class="fas fa-trash-alt"></i>
         </button>
       </article>
     `;
