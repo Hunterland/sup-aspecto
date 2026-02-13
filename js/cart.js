@@ -39,29 +39,33 @@ function saveCart(cart) {
  */
 function addToCart(product) {
   const cart = getCart();
+  const uniqueKey = `${product.id}-${product.size}`; // Combinação única ID + Tamanho
 
-  const existing = cart.find(
-    (item) => item.id === product.id && item.size === product.size,
-  );
+  const existing = cart.find((item) => item.uniqueKey === uniqueKey);
 
   if (existing) {
     existing.quantidade++;
   } else {
-    cart.push({ ...product, quantidade: 1 });
+    cart.push({ ...product, uniqueKey, quantidade: 1 });
   }
 
   saveCart(cart);
   updateCartCount();
   renderCart();
+  showToast("Produto adicionado ao carrinho", "success");
 }
 
 /**
  * Remove um item do carrinho pelo ID
  * @param {number} id
  */
-function removeItem(id) {
+function removeItem(removeKey) {
   const cart = getCart();
-  const newCart = cart.filter((item) => item.id !== parseInt(id));
+  const newCart = cart.filter(item => {
+    // 👈 Retrocompatível: uniqueKey OU id_size
+    const itemKey = item.uniqueKey || `${item.id}_${item.size}`;
+    return itemKey !== removeKey;
+  });
 
   saveCart(newCart);
   renderCart();
@@ -74,16 +78,17 @@ function removeItem(id) {
  * @param {number} id
  * @param {number} delta (+1 ou -1)
  */
-function changeQty(id, delta) {
+function changeQty(changeKey, delta) {
   const cart = getCart();
-  const itemIndex = cart.findIndex((item) => item.id === parseInt(id));
+  const itemIndex = cart.findIndex(item => {
+    // Retrocompatível
+    const itemKey = item.uniqueKey || `${item.id}_${item.size}`;
+    return itemKey === changeKey;
+  });
 
   if (itemIndex !== -1) {
-    cart[itemIndex].quantidade = Math.max(
-      1,
-      cart[itemIndex].quantidade + delta,
-    );
-
+    cart[itemIndex].quantidade = Math.max(1, cart[itemIndex].quantidade + delta);
+    cart[itemIndex].uniqueKey = changeKey; //Gera uniqueKey retroativo
     saveCart(cart);
     renderCart();
     updateCartCount();
@@ -138,7 +143,7 @@ function renderCart() {
   container.innerHTML = cart
     .map(
       (item) => `
-    <div class="cart-item" data-id="${item.id}">
+    <div class="cart-item" data-unique-key="${item.uniqueKey}">
       <img src="${item.imagem}" alt="${item.nome}" class="cart-item-image">
       <div class="cart-details">
         <h3 class="cart-name">${item.nome}</h3>
@@ -153,9 +158,9 @@ function renderCart() {
           <span>${item.quantidade}</span>
           <button data-action="inc" aria-label="Aumentar">+</button>
         </div>
-        <button class="cart-remove" aria-label="Remover ${item.nome}">
+         <button class="cart-remove" aria-label="Remover ${item.nome} ${item.size}">
           <i class="fas fa-trash-alt"></i>
-        </button>
+         </button>
       </div>
     </div>
   `,
@@ -187,16 +192,16 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!btn) return;
 
       const item = btn.closest(".cart-item");
-      const id = item?.dataset?.id;
+      const uniqueKey = item?.dataset?.uniqueKey; 
 
-      if (!id) return;
+      if (!uniqueKey) return;
 
       if (btn.dataset.action === "inc") {
-        changeQty(id, 1);
+        changeQty(uniqueKey, 1);
       } else if (btn.dataset.action === "dec") {
-        changeQty(id, -1);
+        changeQty(uniqueKey, -1);
       } else if (btn.classList.contains("cart-remove")) {
-        pendingRemoveId = id; // Armazena ID
+        pendingRemoveId = uniqueKey; // Armazena ID
         showConfirmModal(); // Abre modal custom
       }
     });
@@ -219,7 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // 👈 Event listeners modal 
+  // 👈 Event listeners modal
   document
     .getElementById("confirm-cancel")
     ?.addEventListener("click", hideConfirmModal);
