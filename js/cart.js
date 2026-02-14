@@ -10,8 +10,7 @@ const CART_KEY = "sup_aspecto_cart";
 const PIX_PAYLOAD = `00020126430014BR.GOV.BCB.PIX0121sup.aspecto@gmail.com5204000053039865802BR5901N6001C62070503***63045D10`;
 
 /* Caminho da imagem QR */
-const PIX_QR_IMAGE = "/assets/qrcode-pix.png";
-
+const PIX_QR_IMAGE = "assets/qrcode-pix.png";
 /* Dados do merchant */
 const MERCHANT = "SUP ASPECTO";
 const CITY = "MANAUS";
