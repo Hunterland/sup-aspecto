@@ -1,47 +1,52 @@
 /* =========================================================
-   CART STATE
+   CONFIGURAÇÕES GLOBAIS
+   =========================================================
+   Tudo que é estático/configurável do sistema fica aqui
    ========================================================= */
 
-/**
- * Chave única usada no localStorage
- * Garante persistência do carrinho entre sessões
- */
 const CART_KEY = "sup_aspecto_cart";
 
+/* Payload PIX fixo (QR estático) */
+const PIX_PAYLOAD = `00020126430014BR.GOV.BCB.PIX0121sup.aspecto@gmail.com5204000053039865802BR5901N6001C62070503***63045D10`;
+
+/* Caminho da imagem QR */
+const PIX_QR_IMAGE = "/assets/qrcode-pix.png";
+
+/* Dados do merchant */
+const MERCHANT = "SUP ASPECTO";
+const CITY = "MANAUS";
+
 /* =========================================================
-   STORAGE (LocalStorage)
+   ESTADO LOCAL — CONTROLE DE REMOÇÃO
+   =========================================================
+   Guarda temporariamente qual item será removido
+   até o usuário confirmar no modal
    ========================================================= */
 
-/**
- * Recupera o carrinho salvo no localStorage
- * @returns {Array}
- */
+let pendingRemoveKey = null;
+
+/* =========================================================
+   STORAGE — ABSTRAÇÃO DO LOCALSTORAGE
+   ========================================================= */
+
 function getCart() {
   return JSON.parse(localStorage.getItem(CART_KEY)) || [];
 }
 
-/**
- * Salva o carrinho no localStorage
- * @param {Array} cart
- */
 function saveCart(cart) {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
 }
 
 /* =========================================================
-   CART ACTIONS (Regras de Negócio)
+   AÇÕES DE CARRINHO
    ========================================================= */
 
-/**
- * Adiciona um produto ao carrinho
- * Se já existir o mesmo produto + tamanho, incrementa a quantidade
- * @param {Object} product
- */
+/* Adiciona produto ou incrementa quantidade */
 function addToCart(product) {
   const cart = getCart();
-  const uniqueKey = `${product.id}-${product.size}`; // Combinação única ID + Tamanho
 
-  const existing = cart.find((item) => item.uniqueKey === uniqueKey);
+  const uniqueKey = `${product.id}-${product.size}`;
+  const existing = cart.find((i) => i.uniqueKey === uniqueKey);
 
   if (existing) {
     existing.quantidade++;
@@ -52,80 +57,79 @@ function addToCart(product) {
   saveCart(cart);
   updateCartCount();
   renderCart();
-  showToast("Produto adicionado ao carrinho", "success");
+  showToast("Produto adicionado", "success");
 }
 
-/**
- * Remove um item do carrinho pelo ID
- * @param {number} id
- */
-function removeItem(removeKey) {
-  const cart = getCart();
-  const newCart = cart.filter(item => {
-    // 👈 Retrocompatível: uniqueKey OU id_size
-    const itemKey = item.uniqueKey || `${item.id}_${item.size}`;
-    return itemKey !== removeKey;
-  });
+/* Remove item após confirmação */
+function removeItemConfirmed() {
+  if (!pendingRemoveKey) return;
 
-  saveCart(newCart);
-  renderCart();
+  const cart = getCart().filter((i) => i.uniqueKey !== pendingRemoveKey);
+
+  saveCart(cart);
+  pendingRemoveKey = null;
+
   updateCartCount();
-  showToast("Item removido do carrinho", "success");
+  renderCart();
 }
 
-/**
- * Altera a quantidade de um item
- * @param {number} id
- * @param {number} delta (+1 ou -1)
- */
-function changeQty(changeKey, delta) {
-  const cart = getCart();
-  const itemIndex = cart.findIndex(item => {
-    // Retrocompatível
-    const itemKey = item.uniqueKey || `${item.id}_${item.size}`;
-    return itemKey === changeKey;
-  });
+/* Solicita confirmação antes de remover */
+function requestRemoveItem(key) {
+  pendingRemoveKey = key;
+  document.getElementById("confirm-modal")?.classList.add("active");
+}
 
-  if (itemIndex !== -1) {
-    cart[itemIndex].quantidade = Math.max(1, cart[itemIndex].quantidade + delta);
-    cart[itemIndex].uniqueKey = changeKey; //Gera uniqueKey retroativo
-    saveCart(cart);
-    renderCart();
-    updateCartCount();
-  }
+/* Ajusta quantidade */
+function changeQty(key, delta) {
+  const cart = getCart();
+  const item = cart.find((i) => i.uniqueKey === key);
+
+  if (!item) return;
+
+  item.quantidade = Math.max(1, item.quantidade + delta);
+
+  saveCart(cart);
+  updateCartCount();
+  renderCart();
 }
 
 /* =========================================================
    UI HELPERS
    ========================================================= */
 
-/**
- * Atualiza o contador visual do carrinho (header)
- */
+/* Atualiza contador visual do carrinho */
 function updateCartCount() {
-  const cart = getCart();
-  const count = cart.reduce((sum, item) => sum + item.quantidade, 0);
-
+  const count = getCart().reduce((s, i) => s + i.quantidade, 0);
   const el = document.getElementById("cart-count");
   if (el) el.innerText = count;
 }
 
-/**
- * Calcula o valor total do carrinho
- * @returns {number}
- */
+/* Calcula total monetário */
 function getTotal() {
-  return getCart().reduce((sum, item) => sum + item.preco * item.quantidade, 0);
+  return getCart().reduce((s, i) => s + i.preco * i.quantidade, 0);
+}
+
+/* =========================================================
+   RESET CHECKOUT FORM
+   ========================================================= */
+
+function resetCheckoutForm() {
+  const nomeInput = document.getElementById("customer-name");
+  const paymentSelect = document.getElementById("payment-method");
+
+  if (nomeInput) nomeInput.value = "";
+
+  if (paymentSelect) {
+    paymentSelect.selectedIndex = 0;
+    // ou:
+    // paymentSelect.value = "";
+  }
 }
 
 /* =========================================================
    RENDERIZAÇÃO DO CARRINHO
    ========================================================= */
 
-/**
- * Renderiza a lista de itens do carrinho no DOM
- * Responsável apenas pela camada de visualização
- */
 function renderCart() {
   const cart = getCart();
   const container = document.querySelector(".cart-items");
@@ -133,179 +137,223 @@ function renderCart() {
 
   if (!container) return;
 
-  if (cart.length === 0) {
-    container.innerHTML =
-      '<p style="text-align:center;opacity:0.6;padding:2rem 1rem">Carrinho vazio</p>';
+  /* Carrinho vazio */
+  if (!cart.length) {
+    container.innerHTML = `<p style="text-align:center;opacity:.6;padding:2rem 1rem">
+        Carrinho vazio
+      </p>`;
     if (totalEl) totalEl.textContent = "R$ 0,00";
     return;
   }
 
+  /* Monta HTML dos itens */
   container.innerHTML = cart
     .map(
       (item) => `
     <div class="cart-item" data-unique-key="${item.uniqueKey}">
-      <img src="${item.imagem}" alt="${item.nome}" class="cart-item-image">
+
+      <img src="${item.imagem}" class="cart-item-image">
+
       <div class="cart-details">
-        <h3 class="cart-name">${item.nome}</h3>
-        <div class="cart-meta">
+        <h3>${item.nome}</h3>
+        <div>
           <span>Tamanho: ${item.size}</span>
           <span>R$ ${item.preco.toFixed(2)}</span>
         </div>
       </div>
+
       <div class="cart-controls-row">
+
         <div class="cart-qty">
-          <button data-action="dec" aria-label="Diminuir">-</button>
+          <button data-action="dec">-</button>
           <span>${item.quantidade}</span>
-          <button data-action="inc" aria-label="Aumentar">+</button>
+          <button data-action="inc">+</button>
         </div>
-         <button class="cart-remove" aria-label="Remover ${item.nome} ${item.size}">
+
+        <button class="cart-remove">
           <i class="fas fa-trash-alt"></i>
-         </button>
+        </button>
+
       </div>
     </div>
   `,
     )
     .join("");
 
-  if (totalEl) {
-    totalEl.textContent = `R$ ${getTotal().toFixed(2)}`;
-  }
+  if (totalEl) totalEl.textContent = `R$ ${getTotal().toFixed(2)}`;
 }
 
 /* =========================================================
-   INIT
+   UTIL PIX — NORMALIZAÇÃO ASCII
    ========================================================= */
 
-/**
- * Inicialização automática ao carregar a página
- */
+function sanitize(str, max) {
+  return str
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-zA-Z0-9 ]/g, "")
+    .toUpperCase()
+    .substring(0, max);
+}
+
+/* =========================================================
+   CRC16 OFICIAL PIX
+   ========================================================= */
+
+function crc16(payload) {
+  let crc = 0xffff;
+
+  for (let i = 0; i < payload.length; i++) {
+    crc ^= payload.charCodeAt(i) << 8;
+
+    for (let j = 0; j < 8; j++) {
+      crc = crc & 0x8000 ? (crc << 1) ^ 0x1021 : crc << 1;
+      crc &= 0xffff;
+    }
+  }
+
+  return crc.toString(16).toUpperCase().padStart(4, "0");
+}
+
+/* =========================================================
+   CHECKOUT
+   ========================================================= */
+
+function handleCheckout() {
+  const nome = document.getElementById("customer-name")?.value.trim();
+  const metodo = document.getElementById("payment-method")?.value;
+
+  const cart = getCart();
+  const total = getTotal();
+
+  if (!nome) return showToast("Digite seu nome", "error");
+  if (!metodo) return showToast("Escolha pagamento", "error");
+  if (!cart.length) return showToast("Carrinho vazio", "error");
+
+  /* Fluxo PIX */
+  if (metodo === "pix") {
+    openPixModal(nome, cart, total);
+    return;
+  }
+
+  /* Fluxo WhatsApp */
+  const itens = cart
+    .map((i) => `${i.nome}|${i.size}|${i.quantidade}`)
+    .join("\n");
+
+  window.open(
+    `https://wa.me/559293818973?text=${encodeURIComponent(
+      `Pedido (Dinheiro)\n${nome}\nTotal:R$${total}\n${itens}`,
+    )}`,
+  );
+
+  /* Finaliza pedido + feedback visual */
+  finalizarPedido();
+  showToast("Pedido enviado ✔", "success");
+}
+
+/* =========================================================
+   PIX MODAL
+   ========================================================= */
+
+function openPixModal(nome, cart, total) {
+  const modal = document.getElementById("pix-modal");
+
+  document.getElementById("pix-image").src = PIX_QR_IMAGE;
+  document.getElementById("pix-payload").value = PIX_PAYLOAD;
+
+  const itens = cart
+    .map((i) => `${i.nome} | ${i.size} | x${i.quantidade}`)
+    .join("<br>");
+
+  document.getElementById("pix-order-details").innerHTML = `
+    <strong>Cliente:</strong> ${nome}<br>
+    <strong>Total:</strong> R$ ${total.toFixed(2)}<br><br>
+    ${itens}
+  `;
+
+  modal.classList.add("active");
+}
+
+/* =========================================================
+   FINALIZAÇÃO
+   ========================================================= */
+
+function finalizarPedido() {
+  localStorage.removeItem(CART_KEY);
+  updateCartCount();
+  renderCart();
+
+  resetCheckoutForm();
+}
+
+/* =========================================================
+   EVENTOS GLOBAIS (INIT)
+   ========================================================= */
+
 document.addEventListener("DOMContentLoaded", () => {
   updateCartCount();
   renderCart();
 
-  let pendingRemoveId = null; // ID global para modal
+  /* Delegação de eventos dos itens */
+  document.querySelector(".cart-items")?.addEventListener("click", (e) => {
+    const item = e.target.closest(".cart-item");
+    if (!item) return;
 
-  const cartItems = document.querySelector(".cart-items");
-  if (cartItems) {
-    cartItems.addEventListener("click", (e) => {
-      const btn = e.target.closest("button");
-      if (!btn) return;
+    const key = item.dataset.uniqueKey;
 
-      const item = btn.closest(".cart-item");
-      const uniqueKey = item?.dataset?.uniqueKey; 
-
-      if (!uniqueKey) return;
-
-      if (btn.dataset.action === "inc") {
-        changeQty(uniqueKey, 1);
-      } else if (btn.dataset.action === "dec") {
-        changeQty(uniqueKey, -1);
-      } else if (btn.classList.contains("cart-remove")) {
-        pendingRemoveId = uniqueKey; // Armazena ID
-        showConfirmModal(); // Abre modal custom
-      }
-    });
-  }
-
-  // NOVAS FUNÇÕES MODAL
-  function showConfirmModal() {
-    document.getElementById("confirm-modal").classList.add("active");
-  }
-
-  function hideConfirmModal() {
-    document.getElementById("confirm-modal").classList.remove("active");
-    pendingRemoveId = null;
-  }
-
-  function confirmRemove() {
-    if (pendingRemoveId) {
-      removeItem(pendingRemoveId);
-      hideConfirmModal();
-    }
-  }
-
-  // 👈 Event listeners modal
-  document
-    .getElementById("confirm-cancel")
-    ?.addEventListener("click", hideConfirmModal);
-  document
-    .getElementById("confirm-remove")
-    ?.addEventListener("click", confirmRemove);
-
-  // Fecha modal clicando overlay
-  document.getElementById("confirm-modal")?.addEventListener("click", (e) => {
-    if (e.target.id === "confirm-modal") hideConfirmModal();
+    if (e.target.closest("[data-action='inc']")) changeQty(key, 1);
+    if (e.target.closest("[data-action='dec']")) changeQty(key, -1);
+    if (e.target.closest(".cart-remove")) requestRemoveItem(key);
   });
-});
 
-/* =========================================================
-   FINALIZAR COMPRA - EMAILJS + WHATSAPP
-   ========================================================= */
-document.addEventListener("DOMContentLoaded", function () {
-  setTimeout(() => {
-    const checkoutBtn = document.getElementById("checkout-btn");
+  /* Checkout */
+  document
+    .getElementById("checkout-btn")
+    ?.addEventListener("click", handleCheckout);
 
-    if (checkoutBtn) {
-      checkoutBtn.addEventListener("click", function () {
-        const nome = document.getElementById("customer-name")?.value?.trim();
-        const pagamento = document.getElementById("payment-method")?.value;
-        const carrinho = getCart();
-        const total = getTotal();
+  /* ============================
+     MODAL CONFIRMAÇÃO REMOÇÃO
+     ============================ */
 
-        // Validações
-        if (carrinho.length === 0 || !nome || !pagamento) {
-          showToast("Complete todos os campos", "error");
-          return;
-        }
+  document.getElementById("confirm-remove")?.addEventListener("click", () => {
+    removeItemConfirmed();
+    document.getElementById("confirm-modal").classList.remove("active");
+  });
 
-        // 👈 PRIMEIRO cria itensTexto
-        const itensTexto = carrinho
-          .map(
-            (item) =>
-              `👕 ${item.nome}
-          Tamanho: ${item.size} | ${item.quantidade}x | R$ ${(item.preco * item.quantidade).toFixed(2)}`,
-          )
-          .join("\n\n");
+  document.getElementById("confirm-cancel")?.addEventListener("click", () => {
+    pendingRemoveKey = null;
+    document.getElementById("confirm-modal").classList.remove("active");
+  });
 
-        // Template params pro EmailJS
-        const templateParams = {
-          cliente_nome: nome,
-          total: `R$ ${total.toFixed(2)}`,
-          pagamento: pagamento.toUpperCase(),
-          data_hora: new Date().toLocaleString("pt-BR"),
-          itens_texto: itensTexto, // 👈 STRING simples
-          email: "alanbarroncas@gmail.com", // 👈 CAMPO OBRIGATÓRIO!
-        };
+  /* ============================
+     PIX MODAL EVENTS
+     ============================ */
 
-        // EMAILJS
-        emailjs
-          .send("service_e4ylnlu", "template_6bzg816", templateParams)
-          .then((response) => {
-            console.log("✅ EMAIL:", response.status);
-            showToast("✅ Email enviado!", "success");
-          })
-          .catch((error) => {
-            console.error("EmailJS:", error);
-            showToast("WhatsApp enviado", "warning");
-          });
+  document.getElementById("copyPixBtn")?.addEventListener("click", async () => {
+    await navigator.clipboard.writeText(PIX_PAYLOAD);
+    showToast("Pix copiado ✔", "success");
+  });
 
-        // 2️⃣ WHATSAPP (Abre conversa com mensagem pré-preenchida)
-        const mensagem = `🛒 PEDIDO\n${nome}\nR$ ${total.toFixed(2)}\n${pagamento}\n${itensTexto}`;
-        window.open(
-          `https://wa.me/559293818973?text=${encodeURIComponent(mensagem)}`,
-          "_blank",
-        );
+  document.getElementById("sendZapBtn")?.addEventListener("click", () => {
+    const cart = getCart();
+    const total = getTotal();
 
-        // Limpa UI
-        localStorage.removeItem(CART_KEY);
-        updateCartCount();
-        renderCart();
-        showToast("✅ Pedido enviado por email + WhatsApp!", "success");
+    const itens = cart
+      .map((i) => `${i.nome}|${i.size}|${i.quantidade}`)
+      .join("\n");
 
-        // Fecha sidebar
-        document.getElementById("cart-sidebar")?.classList.remove("open");
-        document.getElementById("cart-overlay")?.classList.remove("active");
-      });
-    }
-  }, 100);
+    window.open(
+      `https://wa.me/5592991503240?text=${encodeURIComponent(
+        `Pedido Pix\nTotal:R$${total}\n${itens}`,
+      )}`,
+    );
+  });
+
+  document.getElementById("confirmPixBtn")?.addEventListener("click", () => {
+    finalizarPedido();
+    document.getElementById("pix-modal").classList.remove("active");
+
+    showToast("Pedido enviado ✔", "success");
+  });
 });
