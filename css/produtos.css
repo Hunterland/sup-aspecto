@@ -139,9 +139,6 @@
   transition: transform 0.3s ease;
 }
 
-.produto:hover {
-  transform: translateY(-6px);
-}
 
 /* -----------------------
    Imagem do produto
@@ -155,9 +152,6 @@
   transition: transform 0.4s ease;
 }
 
-.produto:hover img {
-  transform: scale(1.02);
-}
 
 /* -----------------------
    Informações do produto

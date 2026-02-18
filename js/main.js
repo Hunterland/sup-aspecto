@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
      ====================================================== */
 
   document.addEventListener("click", (e) => {
-    // 👈 SÓ botões "Adicionar ao carrinho"
+    // SÓ botões "Adicionar ao carrinho"
     if (e.target.matches(".produto button:not(.btn-details)")) {
       e.preventDefault();
 
@@ -92,25 +92,25 @@ document.addEventListener("DOMContentLoaded", () => {
 const PRODUCT_DETAILS = {
   1: {
     // Sup Cypher
-    title: "Camisa Sup Cypher - Drop DHV",
+    title: "Camisa Sup Cypher - Hip Hop Vive / Favela Vive",
     images: [
       "assets/images/drops/DHV/camisa_hv_02.jpg",
       "assets/images/drops/DHV/camisa_hv_01.jpg",
       "assets/images/drops/DHV/camisa_hv_03.jpg",
     ],
     description:
-      "Camisa oficial da Batalha Sup Cypher. Tecido premium dry-fit, silk roxo fosco inspirado na DHV. Corte street oversized perfeito para battles e cyphers.",
+      "Camisa oficial da Batalha Sup Cypher. Tecido premium dry-fit, silk fosco inspirado na DHV. Corte street oversized perfeito para battles e cyphers.",
     specs: [
       "Material: 100% Poliéster Dry-Fit",
       "Modelagem: Oversized Street",
       "Estampa: Silk Screen Premium",
-      "Cores: Roxo/Branco/Preto",
+      "Cores: Branco/Preto",
       "Tamanhos: P, M, G, GG",
     ],
   },
   2: {
     // Nos Por Nós
-    title: "Camisa Nos Por Nós - Drop NPN",
+    title: "Camisa Nos Por Nós - TN x SA",
     images: [
       "assets/images/drops/NPN/camisa_npn_02.jpg",
       "assets/images/drops/NPN/camisa_npn_01.jpg",
@@ -121,7 +121,7 @@ const PRODUCT_DETAILS = {
       "Material: Algodão Premium 180g",
       "Modelagem: Regular Fit",
       "Estampa: Serigrafia Dupla",
-      "Cores: Preto/Branco",
+      "Cores: Preto/Branco/Roxo",
       "Tamanhos: P, M, G, GG",
     ],
   },

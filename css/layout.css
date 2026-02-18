@@ -402,10 +402,6 @@
   transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.produto:hover {
-  transform: translateY(-8px);
-}
-
 /* IMG OTIMIZADA */
 .produto img {
   width: 100%;
@@ -413,10 +409,6 @@
   object-fit: cover;
   border-radius: 4px;
   transition: transform 0.4s ease;
-}
-
-.produto:hover img {
-  transform: scale(1.03);
 }
 
 /* SELECT + BOTÃO = ANEXO PRODUTO.HTML */
@@ -490,7 +482,7 @@
   border-radius: 20px;
   width: clamp(90%, 800px, 950px);
   max-height: 90vh;
-  max-width: 95vw;
+  max-width: 50vw;
   overflow-y: auto;
   animation: modalSlide 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   box-shadow: 0 35px 80px rgba(0, 0, 0, 0.5);
@@ -545,40 +537,53 @@
 .details-gallery {
   padding: clamp(1.5rem, 4vw, 2rem);
   display: grid;
-  grid-template-columns: 1fr 200px;
+  grid-template-columns: 1fr 240px;
   gap: clamp(1.5rem, 4vw, 2rem);
   align-items: start;
 }
 
 @media (max-width: 768px) {
   .details-gallery {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;  
     gap: clamp(1rem, 3vw, 1.5rem);
   }
+  .details-modal-content {
+    width: clamp(90%, 95vw, 95%);
+    max-width: none;
+  }
+
 }
+
 
 .gallery-main img {
   width: 100%;
-  height: 450px;
-  object-fit: cover;
+  height: clamp(400px, 55vh, 500px);  
+  object-fit: cover;                
+  object-position: center;          
   border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
 }
 
 .gallery-thumbs {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-height: 450px;
-  overflow-y: auto;
+   display: flex;
+  flex-direction: row;               
+  gap: clamp(0.75rem, 2vw, 1rem);
+  height: clamp(100px, 14vh, 120px);
+  overflow-x: auto;                  
+  overflow-y: hidden;                
+  scroll-behavior: smooth;
+  padding: 4px 0;
+  scrollbar-width: thin;           
+  scrollbar-color: var(--purple) transparent;
 }
 
 .gallery-thumbs img {
-  width: 100%;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 8px;
+  flex: 0 0 clamp(70px, 11vw, 85px);  
+  height: 100%;                      
+  object-fit: cover;                
   cursor: pointer;
   opacity: 0.7;
+  border-radius: 8px;
   transition: all 0.3s ease;
   border: 2px solid transparent;
 }
@@ -588,6 +593,7 @@
   opacity: 1;
   border-color: var(--purple);
   transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(91,45,139,0.3);
 }
 
 .details-info {
