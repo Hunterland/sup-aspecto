@@ -241,7 +241,7 @@ function handleCheckout() {
     .join("\n");
 
   window.open(
-    `https://wa.me/559293818973?text=${encodeURIComponent(
+    `https://wa.me/5592991503240?text=${encodeURIComponent(
       `Pedido (Dinheiro)\n${nome}\nTotal:R$${total}\n${itens}`,
     )}`,
   );

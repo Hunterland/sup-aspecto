@@ -33,9 +33,25 @@
 /* Grid base para listagem de produtos */
 .grid-produtos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 40px;
+  grid-template-columns: repeat(2, 1fr);  /* 👈 FIXO 2 COLUNAS */
+  gap: clamp(2rem, 6vw, 3rem);            /* Espaço vertical/horizontal */
+  max-width: 900px;                       /* Limita largura total */
+  margin: 0 auto;                         /* Centraliza bloco */
+  justify-items: center; 
 }
+
+@media (max-width: 768px) {
+  .grid-produtos {
+    grid-template-columns: 1fr;  /* 👈 Mobile: 1 coluna */
+    gap: clamp(1.5rem, 6vw, 2.5rem);
+  }
+}
+
+.produto {
+   max-width: 420px;     /* Largura máxima consistente */
+  width: 100%;
+}
+
 
 /* Imagem do produto */
 .produto img {

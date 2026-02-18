@@ -180,7 +180,10 @@
               <option value="G">G</option>
               <option value="GG">GG</option>
             </select>
-            <button data-id="1">Adicionar</button>
+            <div class="produto-actions">
+              <button class="btn-details" data-id="1">Ver detalhes</button>
+              <button data-id="1">Adicionar</button>
+            </div>
           </article>
           <article class="produto">
             <img
@@ -199,7 +202,10 @@
               <option value="G">G</option>
               <option value="GG">GG</option>
             </select>
-            <button data-id="2">Adicionar</button>
+            <div class="produto-actions">
+              <button class="btn-details" data-id="1">Ver detalhes</button>
+              <button data-id="2">Adicionar</button>
+            </div>
           </article>
         </div>
       </section>
@@ -280,6 +286,31 @@
           <button id="copyPixBtn" class="btn secondary">Copiar código</button>
           <button id="sendZapBtn" class="btn outline">Enviar pedido</button>
           <button id="confirmPixBtn" class="btn primary">Já paguei</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DETALHES PRODUTO (SIMPLIFICADO) -->
+    <div class="details-modal-overlay" id="details-modal">
+      <div class="details-modal-content">
+        <header class="details-header">
+          <h2 id="details-title">Produto</h2>
+          <button id="close-details" aria-label="Fechar">✕</button>
+        </header>
+
+        <div class="details-gallery">
+          <div class="gallery-main">
+            <img id="details-main-img" src="" alt="" />
+          </div>
+          <div class="gallery-thumbs" id="gallery-thumbs"></div>
+        </div>
+
+        <div class="details-desc">
+          <h3 id="details-desc-title">Descrição</h3>
+          <p id="details-description"></p>
+
+          <h4>Especificações</h4>
+          <ul id="details-specs"></ul>
         </div>
       </div>
     </div>

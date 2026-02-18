@@ -1,113 +1,60 @@
 /* =========================================================
-   PRODUTOS PAGE (LISTAGEM + FILTRO)
+   PRODUTOS PAGE (LISTAGEM + FILTRO) - V2 LIMPA
    ========================================================= */
 
-/**
- * Elementos principais da página de produtos
- */
+/** Elementos principais */
 const produtosList = document.getElementById("produtos-list");
 const filterYear = document.getElementById("filter-year");
 
 /* =========================================================
-   RENDERIZAÇÃO DE PRODUTOS
+   RENDERIZAÇÃO - V2 LIMPA (SEM EVENTOS, APENAS MARCAÇÃO)
    ========================================================= */
-
-/**
- * Renderiza os cards de produtos no grid
- * @param {Array} products - lista de produtos a renderizar
- */
 function renderProducts(products) {
-  // limpa o grid
-  produtosList.innerHTML = "";
+  produtosList.innerHTML = ""; // Limpa grid
 
   products.forEach((product) => {
     const card = document.createElement("div");
     card.className = "produto";
 
     card.innerHTML = `
-      <img src="${product.imagem}" alt="${product.nome}" />
-
+      <img src="${product.imagem}" alt="${product.nome}"/>
       <h3>${product.nome}</h3>
-
-      <p class="price">R$ ${product.preco}</p>
-
-      <select class="product-size">
-        <option value="">Tamanho</option>
-        <option value="P">P</option>
-        <option value="M">M</option>
-        <option value="G">G</option>
-        <option value="GG">GG</option>
-      </select>
-
-      <button data-id="${product.id}">
-        Adicionar ao carrinho
-      </button>
+      <p class="price">R$ ${product.preco.toFixed(2)}</p>
+      
+      <div class="produto-actions">
+        <button class="btn-details" data-id="${product.id}">Ver detalhes</button>
+        <select class="product-size" aria-label="Tamanho ${product.nome}">
+          <option value="">Tamanho</option>
+          <option value="P">P</option>
+          <option value="M">M</option>
+          <option value="G">G</option>
+          <option value="GG">GG</option>
+        </select>
+        <button data-id="${product.id}">Adicionar ao carrinho</button>
+      </div>
     `;
 
     produtosList.appendChild(card);
   });
 
-  // reaplica os eventos de carrinho
-  bindCartButtons();
+  // main.js já cuida dos eventos (delegation global)
+  // bindCartButtons() REMOVIDO - conflito evitado
 }
 
 /* =========================================================
-   AÇÕES DO CARRINHO
+   FILTRO POR ANO - V2 LIMPA (SEM RELOAD, APENAS RENDERIZAÇÃO CONDICIONAL)
    ========================================================= */
-
-/**
- * Associa os eventos de clique aos botões "Adicionar ao carrinho"
- * Essa função precisa ser reaplicada após cada renderização
- */
-function bindCartButtons() {
-  document.querySelectorAll(".produto button").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const id = Number(btn.dataset.id);
-      const product = PRODUCTS.find((p) => p.id === id);
-      const size = btn.parentElement.querySelector(".product-size").value;
-
-      if (!size) {
-        alert("Selecione o tamanho da peça");
-        return;
-      }
-
-      addToCart({ ...product, size });
-
-      // força atualização visual do carrinho
-      if (typeof renderCart === "function") {
-        renderCart();
-      }
-    });
-  });
-}
-
-/* =========================================================
-   FILTRO POR ANO
-   ========================================================= */
-
-/**
- * Filtra os produtos de acordo com o ano selecionado
- */
 filterYear.addEventListener("change", () => {
   const year = filterYear.value;
 
   if (year === "all") {
     renderProducts(PRODUCTS);
   } else {
-    renderProducts(
-      PRODUCTS.filter((p) => p.ano === Number(year))
-    );
+    renderProducts(PRODUCTS.filter((p) => p.ano === Number(year)));
   }
 });
 
 /* =========================================================
-   INIT
+   INIT - SORT RECENTE - V2 LIMPA (SEM RELOAD, APENAS RENDERIZAÇÃO INICIAL ORDENADA)
    ========================================================= */
-
-/**
- * Render inicial:
- * - produtos ordenados do mais recente para o mais antigo
- */
-renderProducts(
-  [...PRODUCTS].sort((a, b) => b.ano - a.ano)
-);
+renderProducts([...PRODUCTS].sort((a, b) => b.ano - a.ano));
