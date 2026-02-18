@@ -1,6 +1,6 @@
 # Sup. Aspecto — E-commerce Streetwear Hip-Hop
 
-![Preview do site](https://raw.githubusercontent.com/Hunterland/sup-aspecto/master/assets/images/sup_demo.gif)
+![Preview do site](https://raw.githubusercontent.com/Hunterland/sup-aspecto/master/assets/preview.gif)
 
 
 ## 📌 Descrição do Projeto
