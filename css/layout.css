@@ -1403,3 +1403,29 @@
     font-size: 4.5rem;
   }
 }
+
+/* Footer mobile centralizado */
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr;          /* Uma coluna */
+    text-align: center;                  /* Texto centralizado */
+    justify-items: center;               /* Colunas centralizadas no grid */
+  }
+
+  .footer-col {
+    max-width: 320px;                    /* Largura confortável */
+    width: 100%;
+  }
+
+  .footer-col h3,
+  .footer-col h4 {
+    text-align: center;
+  }
+
+  .footer-col p,
+  .footer-col a,
+  .footer-col li {
+    text-align: center;
+  }
+}
+
