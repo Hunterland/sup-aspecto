@@ -57,7 +57,6 @@ O site comercializa **drops exclusivos** (Cypher DHV, Nós Por Nois NPN) integra
 * **Carrinho Sidebar** — `right:-100vw` slide sem vazamento
 * **Checkout Híbrido** — EmailJS + WhatsApp Pix imediato Manaus
 * **Validações UX** — Toast size obrigatório + merge carrinho
-* **Performance** — Clamp fluido + `will-change` GPU + touch 44px+
 
 ***
 
