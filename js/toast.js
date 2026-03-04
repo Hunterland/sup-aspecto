@@ -7,7 +7,7 @@
  */
 const TOAST_TYPES = {
   success: { emoji: "✅", bg: "rgba(34, 197, 94, 0.12)", border: "rgba(34, 197, 94, 0.4)" },
-  error: { emoji: "❌", bg: "rgba(239, 68, 68, 0.12)", border: "rgba(239, 68, 68, 0.6)" }, // 👈 VERMELHO validação
+  error: { emoji: "❌", bg: "rgba(239, 68, 68, 0.12)", border: "rgba(239, 68, 68, 0.6)" }, 
   warning: { emoji: "⚠️", bg: "rgba(251, 191, 36, 0.12)", border: "rgba(251, 191, 36, 0.4)" },
   info: { emoji: "ℹ️", bg: "rgba(59, 130, 246, 0.12)", border: "rgba(59, 130, 246, 0.4)" }
 };
