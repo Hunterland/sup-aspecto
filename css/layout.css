@@ -34,7 +34,7 @@
 
 /* 2. HAMBURGER MOBILE (base: none, mobile: flex) */
 .header-hamburger {
-  display: none; /* 👈 Base: hidden desktop */
+  display: none;
   background: none;
   border: none;
   cursor: pointer;
@@ -158,25 +158,25 @@
    ====================================================== */
 @media (max-width: 1023px) {
   .header-content {
-    justify-content: center; /* 👈 CENTRALIZA tudo */
+    justify-content: center; 
     position: relative;
   }
 
   .header-hamburger {
-    display: flex !important; /* 👈 FORÇA VISÍVEL mobile */
+    display: flex !important; 
     position: absolute;
-    left: clamp(1rem, 4vw, 1.5rem); /* Esquerda absoluta */
-    order: unset; /* Remove flex order conflito */
+    left: clamp(1rem, 4vw, 1.5rem); 
+    order: unset; 
   }
 
   .header-logo {
-    order: unset; /* Central natural */
-    margin-right: 0 !important; /* Remove margem extra */
+    order: unset; 
+    margin-right: 0 !important;
   }
 
   .header-cart {
     position: absolute;
-    right: clamp(1rem, 4vw, 1.5rem); /* Direita absoluta */
+    right: clamp(1rem, 4vw, 1.5rem); 
   }
 
   .header-nav {
@@ -242,12 +242,12 @@
    ====================================================== */
 @media (min-width: 1024px) {
   .header-logo {
-    order: 0; /* 👈 ESQUERDA static */
-    position: static; /* Remove qualquer absolute */
+    order: 0; 
+    position: static; 
   }
 
   .header-logo img {
-    height: clamp(48px, 6vw, 80px); /* 👈 Desktop: 72px max */
+    height: clamp(48px, 6vw, 80px); 
   }
 
   .header-hamburger {
@@ -256,12 +256,12 @@
 
   .header-nav {
     display: flex !important;
-    margin-left: auto; /*  NAV para DIREITA */
-    margin-right: clamp(1rem, 2vw, 2rem); /* Gap nav-cart */
+    margin-left: auto;
+    margin-right: clamp(1rem, 2vw, 2rem); 
   }
 
   .header-cart {
-    margin-left: 0; /* Extrema-direita natural */
+    margin-left: 0; 
   }
 
   .header-content {
@@ -295,8 +295,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; /* ← CENTRALIZA */
-  text-align: center; /* ← TEXTO CENTER */
+  align-items: center;
+  text-align: center; 
   gap: clamp(1rem, 2.5vw, 1.5rem);
   color: var(--white);
   max-width: clamp(90%, 800px, 900px);
@@ -358,10 +358,6 @@
 }
 
 /* =======================================================
-   SEÇÃO PRODUTOS HOME
-   ====================================================== */
-
-/* =======================================================
    SEÇÃO PRODUTOS HOME - ALINHADO PRODUTO.HTML
    ====================================================== */
 .produtos {
@@ -372,7 +368,7 @@
 }
 
 .produtos h2 {
-  margin-bottom: clamp(2rem, 5vw, 3rem); /* 👈 Clamp direto (sem var) */
+  margin-bottom: clamp(2rem, 5vw, 3rem); 
   font-family: "Bebas Neue", sans-serif;
   font-size: clamp(2.25rem, 7vw, 4rem);
   font-weight: 700;
@@ -385,9 +381,9 @@
 /* GRID 2x1 PERFEITO (igual anexo produto.html) */
 .grid-produtos {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 👈 FIXO 2 COLUNAS */
-  gap: clamp(2.5rem, 6vw, 3.5rem); /* Espaço generoso */
-  max-width: clamp(800px, 85vw, 900px); /* Centraliza bloco */
+  grid-template-columns: repeat(2, 1fr); 
+  gap: clamp(2.5rem, 6vw, 3.5rem); 
+  max-width: clamp(800px, 85vw, 900px); 
   margin: 0 auto;
   justify-items: center;
 }
@@ -415,8 +411,8 @@
 .produto .product-size {
   width: 100%;
   padding: clamp(0.875rem, 2.5vw, 1.125rem);
-  border: 1px solid #000; /* Borda preta fina */
-  border-radius: 0; /* Quadrado */
+  border: 1px solid #000; 
+  border-radius: 0; 
   background: #fafafa;
   color: #000;
   font-size: clamp(0.875rem, 2.5vw, 1rem);
@@ -707,7 +703,7 @@
   inset: 0;
   background: rgba(0, 0, 0, 0.75);
   opacity: 0;
-  visibility: hidden; /* 👈 TOTALMENTE oculto */
+  visibility: hidden; 
   pointer-events: none;
   transition: opacity 0.35s ease;
   z-index: 90;
@@ -718,7 +714,7 @@
 .cart-sidebar {
   position: fixed;
   top: 0;
-  right: -100vw; /* 👈 FORA TELA (vw evita calc bug 320px) */
+  right: -100vw; 
   width: clamp(320px, 85vw, 420px);
   max-width: 90vw; /* Limite segurança */
   height: 100dvh;
@@ -728,7 +724,7 @@
   flex-direction: column;
   transition: right 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   z-index: 100;
-  box-shadow: none; /* 👈 SEM sombra vazada */
+  box-shadow: none; 
   transform: translateZ(0); /* GPU acceleration */
   overflow: hidden;
   will-change: right; /* Performance */
