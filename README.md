@@ -91,17 +91,16 @@ sup-aspecto/
 
 
 
-## 🚀 Deploy & Teste
+## 🚀 Deploy
 
-### **Deploy 1-click**
+### **Deploy**
 ```
-GitHub Pages | Vercel | Netlify (drag & drop pasta)
+GitHub Pages
 ```
 
 ### **Teste Local**
 ```bash
-npx serve .          # Porta 3000
-# ou VSCode Live Server
+VSCode Live Server
 ```
 
 ### **Fluxo de Teste Completo**
@@ -110,17 +109,6 @@ npx serve .          # Porta 3000
 2. Cypher → M → Add → TOAST "adicionado" ✓
 3. 🛒 badge "1" → Open → Cypher M R$120 ✓
 4. "João Silva" + Pix → Finalizar → WhatsApp ✓
-```
-
-***
-
-## 📈 Performance & Métricas
-
-```
-Lighthouse Mobile: 95+
-FCP: <1.5s | LCP: <2.5s | CLS: 0
-Touch Targets: 44px+ (WCAG AA)
-Z-Index: header100 > overlay90 > sidebar100
 ```
 
 ***
