@@ -19,14 +19,14 @@ O site comercializa **drops exclusivos** (Cypher DHV, Nós Por Nois NPN) integra
 * Capturar leads via EmailJS + WhatsApp Pix imediato
 * Experiência mobile perfeita (320px iPhone SE+)
 * Construir autoridade da marca Sup. Aspecto
-* Escalar para React/Prisma futuro
+* Escalar para outras Stacks futuras
 
 ***
 
 ## 🧱 Estrutura da Página
 
 **index.html** (Página Principal):
-* **Header** — Logo (48-80px) + hamburger/nav + 🛒 badge
+* **Header** — Logo (48-80px) + hamburger/nav + 🛒 ícone via CDN
 * **Hero** — "Coleção Batalha Malta" video-like bg crop 15%
 * **Manifesto** — "Nascida no Amazonas. Feita na rua. Criada pela cena."
 * **Drop Atual** — Cypher R$120 + NPN R$130 (select P/M/G/GG)
