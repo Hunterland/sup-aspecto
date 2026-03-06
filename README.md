@@ -66,7 +66,6 @@ O site comercializa **drops exclusivos** (Cypher DHV, Nós Por Nois NPN) integra
 sup-aspecto/
 ├── 📄 index.html          ← Home + produtos destaque
 ├── 📄 produto.html        ← Catálogo completo + filtro
-├── 📄 sobre.html          ← História da marca
 ├── 📁 css/                 ← Arquitetura 5 arquivos
 │   ├── reset.css         ← Box-sizing universal
 │   ├── variables.css     ← --purple #5b2d8b + fonts
