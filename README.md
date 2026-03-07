@@ -1,134 +1,219 @@
-# Sup. Aspecto — E-commerce Streetwear Hip-Hop
+# 👕 Sup. Aspecto — Streetwear Hip-Hop Amazônico
 
 ![Preview do site](https://raw.githubusercontent.com/Hunterland/sup-aspecto/master/assets/preview.gif)
 
+<p align="center">
 
-## 📌 Descrição do Projeto
+![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge\&logo=html5\&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge\&logo=css3\&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge\&logo=javascript\&logoColor=black)
+![EmailJS](https://img.shields.io/badge/EmailJS-FF6A00?style=for-the-badge\&logo=gmail\&logoColor=white)
+![FontAwesome](https://img.shields.io/badge/FontAwesome-528DD7?style=for-the-badge\&logo=fontawesome\&logoColor=white)
+![Mobile First](https://img.shields.io/badge/Mobile--First-000?style=for-the-badge)
 
-Este repositório contém o **e-commerce MVP do Sup. Aspecto**, marca independente de streetwear nascida em Manaus-AM (2026). Desenvolvido com foco em **cultura hip-hop amazônica**, **conversão mobile-first**, **identidade visual urbana** e **experiência de compra fluida**.
+</p>
 
-O site comercializa **drops exclusivos** (Cypher DHV, Nós Por Nois NPN) integrando a cena local: Batalha da Malta, Primatas Clan e identidade amazônica.
+---
 
-**Status:** MVP 95% funcional → pronto para produção.
+# 📌 Sobre o Projeto
 
-***
+O **Sup. Aspecto** é um **e-commerce MVP de streetwear**, criado para representar a **cultura hip-hop amazônica** através de produtos exclusivos, identidade visual urbana e experiência de compra rápida.
 
-## 🎯 Objetivos do Site
+A marca nasceu em **Manaus — Amazonas em 2026**, conectada diretamente com a cena local:
 
-* Vender streetwear hip-hop com identidade amazônica
-* Capturar leads via EmailJS + WhatsApp Pix imediato
-* Experiência mobile perfeita (320px iPhone SE+)
-* Construir autoridade da marca Sup. Aspecto
-* Escalar para outras Stacks futuras
+* batalhas de breaking
+* cyphers
+* coletivos culturais
+* arte urbana
 
-***
+O projeto foi desenvolvido com foco em:
 
-## 🧱 Estrutura da Página
+* **mobile-first**
+* **alta conversão**
+* **checkout simplificado**
+* **performance leve**
 
-**index.html** (Página Principal):
-* **Header** — Logo (48-80px) + hamburger/nav + 🛒 ícone via CDN
-* **Hero** — "Coleção Batalha Malta" video-like bg crop 15%
-* **Manifesto** — "Nascida no Amazonas. Feita na rua. Criada pela cena."
-* **Drop Atual** — Cypher R$120 + NPN R$130 (select P/M/G/GG)
-* **Footer** — Contato + redes + copyright 2026
+---
 
-**produto.html** — Lista completa + filtro ano
-**sobre.html** — Narrativa marca + história
+# 🎯 Objetivos
 
-***
+* Vender streetwear com identidade amazônica
+* Fortalecer a cena hip-hop local
+* Criar um e-commerce simples e funcional
+* Capturar pedidos via WhatsApp + Pix
+* Escalar futuramente para backend completo
 
-## 🛠️ Tecnologias Utilizadas
+---
 
-* **HTML5** — Semântica + acessibilidade (aria-labels)
-* **CSS3** — Mobile-first `clamp()` + Grid/Flex + `cubic-bezier`
-* **JavaScript Vanilla** — Carrinho localStorage + validações
-* **EmailJS** — Checkout sem backend (Pix/Dinheiro)
-* **Font Awesome 6.5** — Ícones cart/menu
-* **Google Fonts** — **Bebas Neue** (títulos) + **Inter** (texto)
+# 🧱 Estrutura do Site
 
-**CDNs Zero Bloqueio** — Performance Lighthouse 95+ Mobile
+### Página Principal
 
-***
+**index.html**
 
-## 🎨 Destaques Técnicos
+Seções:
 
-* **Responsivo Total** — 320px (iPhone SE) até 2K+
-* **Header Inteligente** — Mobile: ≡ LOGO 🛒 | Desktop: LOGO Nav 🛒
-* **Carrinho Sidebar** — `right:-100vw` slide sem vazamento
-* **Checkout Híbrido** — EmailJS + WhatsApp Pix imediato Manaus
-* **Validações UX** — Toast size obrigatório + merge carrinho
+* Header com navegação
+* Hero section
+* Manifesto da marca
+* Drop atual
+* Carrinho lateral
+* Footer institucional
 
-***
+---
 
-## 📁 Estrutura de Pastas
+### Catálogo
+
+**produto.html**
+
+Funções:
+
+* listagem de produtos
+* filtro por coleção
+* navegação simples
+
+---
+
+# 🛠️ Tecnologias Utilizadas
+
+### Stack
+
+| Tecnologia   | Uso                   |
+| ------------ | --------------------- |
+| HTML5        | Estrutura semântica   |
+| CSS3         | Layout responsivo     |
+| JavaScript   | Interações e carrinho |
+| EmailJS      | Checkout sem backend  |
+| Font Awesome | Ícones                |
+| Google Fonts | Tipografia            |
+
+### Tipografia
+
+| Fonte          | Uso     |
+| -------------- | ------- |
+| **Bebas Neue** | Títulos |
+| **Inter**      | Texto   |
+
+---
+
+# ⚡ Destaques Técnicos
+
+✔ Mobile-first
+✔ Carrinho com **localStorage**
+✔ Sidebar de carrinho animada
+✔ Checkout via **WhatsApp + Pix**
+✔ Toast notifications UX
+✔ Performance Lighthouse **95+**
+
+---
+
+# 📁 Estrutura do Projeto
 
 ```bash
 sup-aspecto/
-├── 📄 index.html          ← Home + produtos destaque
-├── 📄 produto.html        ← Catálogo completo + filtro
-├── 📁 css/                 ← Arquitetura 5 arquivos
-│   ├── reset.css         ← Box-sizing universal
-│   ├── variables.css     ← --purple #5b2d8b + fonts
-│   ├── base.css          ← Typography base
-│   ├── layout.css        ← Header/hero/sidebar/footer
-│   └── components.css    ← Buttons/produtos
-├── 📁 js/                 ← Funcionalidades modulares
-│   ├── products.js       ← [Cypher id:1, NPN id:2]
-│   ├── main.js          ← Eventos + hamburger
-│   ├── cart.js          ← localStorage + EmailJS/WhatsApp
-│   ├── toast.js         ← Notificações slide 3s
-│   └── produtos.js      ← Filtro dinâmico produto.html
-├── 📁 assets/
-│   ├── images/logo/supaspecto.png
-│   ├── images/drops/DHV/camisa_hv_02.jpg
-│   ├── images/drops/NPN/camisa_npn_02.jpg
-│   └── images/hero/hero-batalha-malta.png
-└── 📄 README.md
+│
+├── index.html
+├── produto.html
+│
+├── css/
+│   ├── reset.css
+│   ├── variables.css
+│   ├── base.css
+│   ├── layout.css
+│   └── components.css
+│
+├── js/
+│   ├── products.js
+│   ├── main.js
+│   ├── cart.js
+│   ├── toast.js
+│   └── produtos.js
+│
+├── assets/
+│   ├── images/logo/
+│   ├── images/drops/
+│   └── images/hero/
+│
+└── README.md
 ```
 
+---
 
+# 🚀 Deploy
 
+### Produção
 
+Hospedado via **GitHub Pages**
 
-## 🚀 Deploy
+### Teste Local
 
-### **Deploy**
-```
-GitHub Pages
-```
-
-### **Teste Local**
 ```bash
-VSCode Live Server
+VSCode + Live Server
 ```
 
-### **Fluxo de Teste Completo**
+---
+
+# 🔁 Fluxo de Compra
+
 ```bash
-1. 375px mobile → CLICK ≡ → Overlay links ✓
-2. Cypher → M → Add → TOAST "adicionado" ✓
-3. 🛒 badge "1" → Open → Cypher M R$120 ✓
-4. "João Silva" + Pix → Finalizar → WhatsApp ✓
+1. Usuário acessa o site
+2. Escolhe produto
+3. Seleciona tamanho
+4. Adiciona ao carrinho
+5. Preenche nome
+6. Finaliza pedido
+7. Redirecionamento WhatsApp
 ```
 
-***
+Pagamento via **Pix ou Dinheiro (entrega local)**.
 
-## 📄 Licença
+---
+
+# 📊 Performance
+
+Métricas médias:
+
+| Métrica        | Resultado |
+| -------------- | --------- |
+| Performance    | 95+       |
+| Accessibility  | 90+       |
+| Best Practices | 95+       |
+| SEO            | 90+       |
+
+---
+
+# 🧭 Roadmap
+
+Próximas melhorias planejadas:
+
+* [ ] Backend com Node/NestJS
+* [ ] Banco de dados PostgreSQL
+* [ ] Painel administrativo
+* [ ] Integração com gateway de pagamento
+* [ ] Sistema de estoque
+* [ ] Analytics de vendas
+
+---
+
+# 👨‍💻 Desenvolvimento
+
+Desenvolvido por:
+
+**Alan Barroncas**
+Frontend / Fullstack Developer 
+
+---
+
+# 📄 Licença
 
 ```
-© 2026 Sup. Aspecto — Todos os direitos reservados.
-Desenvolvido para a cena hip-hop amazônica.
+© 2026 Sup. Aspecto
+Todos os direitos reservados.
 Uso comercial exclusivo da marca.
 ```
 
-***
+Projeto desenvolvido para fortalecer a **cultura hip-hop amazônica**.
 
-**Desenvolvido por:** Alan Barroncas 
-**Data:** 12 Fevereiro 2026  
-**Versão:** 1.0.0 MVP  
+---
 
-```bash
-⭐ Star se curtiu a streetwear tech!
-```
-
-***
-
+⭐ **Se curtiu o projeto, deixe uma estrela no repositório!**
